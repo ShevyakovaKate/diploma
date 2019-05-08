@@ -31,24 +31,19 @@ public class AnalysisControllerImpl implements AnalysisController {
                 1.4594180827833088, 1.468575815076101, 1.4763496636791245,
                 1.4830298831906505, 1.4888311854788303, 1.4939157259483828};
 
-        Pair<Double, Double> component1 = new Pair<>(0.33, 1.0); //was 0.33, 0.66, 1, 3
-        Pair<Double, Double> component2 = new Pair<>(0.67, 3.0);
+        double[] startParameters = {0.33, 0.67, 1, 3};
 
-        Double sigma = 1.0;
+        double sigma = 1.0;
 
-        List<Pair<Double, Double>> components = new ArrayList<>();
-
-        components.add(component1);
-        components.add(component2);
-
-        Double hi2Value = analysisService.startPhaseFrequencyAnalysis(frequencies, components, realValues, sigma);
+       /* Double hi2Value = analysisService.startPhaseFrequencyAnalysis(frequencies, components, realValues, sigma);*/
+        analysisService.startAnalysis(frequencies, startParameters, realValues, sigma, 1 );
 
     }
 
     @Override
     public void startFFSAnalysis() {
 
-        Double[] taysArray = {0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4,  2.6, 2.8, 3.0, 3.4, 3.8, 4.2,
+        double[] tays = {0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4,  2.6, 2.8, 3.0, 3.4, 3.8, 4.2,
                 4.6, 5.0, 5.4, 5.8, 6.2, 6.6, 7.0, 7.4, 7.8, 8.2, 8.6, 9.0, 9.4, 9.8, 10.2, 10.6, 11.0, 11.4, 11.8, 12.2,
                 12.6, 13.0, 13.4, 13.8, 14.2, 14.6, 15.0, 15.4, 15.8, 16.2, 16.6, 17.0, 17.4, 17.8, 18.2, 18.6, 19.0, 19.4,
                 19.8, 20.2, 20.6, 20.0, 21.4, 21.8, 22.2, 22.6, 22.0, 23.4, 23.8, 24.2, 24.6, 24.0, 25.4, 25.8,26.2, 26.6,
@@ -60,7 +55,7 @@ public class AnalysisControllerImpl implements AnalysisController {
                 62.0, 63.4, 63.8, 64.2, 64.6, 64.0, 65.4, 65.8, 66.2, 66.6, 66.0, 67.4, 67.8, 68.2, 68.6, 68.0, 69.4, 69.8,
                 70.2, 70.6, 70.0, 71.4, 71.8, 72.2, 72.6, 72.0, 73.4};
 
-        Double[] realValuesArray = {51.0, 40.94092739671259, 34.199403665071046, 29.672419442222424, 26.62378414515896, 24.56212703145273,
+        double[] realValues = {51.0, 40.94092739671259, 34.199403665071046, 29.672419442222424, 26.62378414515896, 24.56212703145273,
                 23.159476240547846, 22.19691826268793, 21.528330324131634, 21.05617447239372, 20.715341669545563, 20.462368572649307, 20.268240181136424,
                 20.113585822616812, 19.9854725668013, 19.87526485676017, 19.687413531787282, 19.52326875986456, 19.370876122363008, 19.22488156756153,
                 19.0828734706082, 18.943752399007654, 18.807004508540135, 18.672377659724095, 18.53973702582556, 18.409000705036433, 18.280110995210283,
@@ -90,8 +85,6 @@ public class AnalysisControllerImpl implements AnalysisController {
                 8.766606488247984, 8.737784232574091, 8.709156589218018, 8.752170911825528, 8.652477418667395, 8.624422094509562, 8.596553787912313,
                 8.568870661971928, 8.610464679387372, 8.514052723617922};
 
-        List<Double> tays = new ArrayList<>((Arrays.asList(taysArray)));
-        List<Double> realValue = new ArrayList<>((Arrays.asList(realValuesArray)));
 
         Double sigma = 1.0;
 
@@ -107,13 +100,9 @@ public class AnalysisControllerImpl implements AnalysisController {
         /*
          * this is fake values
          */
-        Double N_eff = 0.06;
-        Double f_trip = 0.65;
-        Double tay_trip = 0.5;
-        Double tay_diff = 60.0;
-        Double a= 2.0;
+       double[] inputParameters = {0.05, 0.6, 0.05, 50.0, 3.0};
 
 
-        Double hi2 = analysisService.startFFSAnalysis(tays,N_eff, f_trip, tay_trip, tay_diff, a,  realValue, sigma);
+       analysisService.startAnalysis(tays, inputParameters, realValues, sigma, 2);
     }
 }
