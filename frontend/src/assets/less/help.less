@@ -1,0 +1,22 @@
+.help {
+    .form-inline {
+        .form-group {
+            display: block;
+            & + .form-group {
+                margin-top: 15px;
+            }
+
+            label {
+                width: 150px;
+            }
+
+            .form-control[disabled] {
+                cursor: default;
+            }
+        }
+
+        .form-control-static {
+            vertical-align: middle;
+        }
+    }
+}

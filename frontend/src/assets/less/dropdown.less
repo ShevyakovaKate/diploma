@@ -1,0 +1,17 @@
+.dropdown {
+  &--action-menu {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 0;
+
+    .dropdown-item {
+      line-height: 1.6;
+    }
+  }
+}
+.dropdown-item {
+  &.active,
+  &:active {
+    background: @color-primary;
+  }
+}

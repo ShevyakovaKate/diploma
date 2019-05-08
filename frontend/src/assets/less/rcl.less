@@ -1,0 +1,245 @@
+.rcl {
+    margin: 0 -15px;
+
+    & .container-fluid .row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    &-symbols {
+        position: relative;
+        padding: 40px 0 0;
+
+        > .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+
+            .symbols-list {
+                padding: 5px 0;
+                white-space: nowrap;
+                overflow: auto;
+
+                .item {
+                    display: inline-block;
+                    vertical-align: top;
+                    color: @color-primary;
+                    font-size: 14px;
+                    line-height: 12px;
+                    font-weight: bold;
+                    padding: 4px 5px;
+                    cursor: pointer;
+
+                    &:before {
+                        float: left;
+                        content: '';
+                        height: 12px;
+                        width: 1px;
+                        background: @color-neutral;
+                        margin: 0 6px 0 -6px;
+                        pointer-events: none;
+                    }
+
+                    &.active {
+                        color: @color-primary;
+                        background: lighten(@color-neutral, 20%);
+                    }
+                }
+            }
+        }
+
+        > .body {
+            padding: 10px 0 0;
+
+            .header {
+                position: relative;
+                line-height: 20px;
+                font-weight: bold;
+                background: @color-neutral-lighter;
+                padding: 8px 10px 7px;
+                border-top: 1px solid @color-neutral-light;
+                border-bottom: 1px solid @color-neutral-light;
+                margin-bottom: -1px;
+            }
+
+            .symbols-list {
+                line-height: 20px;
+                max-height: 307px;
+                overflow: auto;
+
+                .symbol {
+                    display: block;
+                    padding: 6px 10px 5px 10px;
+                    color: @color-primary;
+                    font-weight: bold;
+                }
+                .item {
+                    display: block;
+                    border-top: 1px solid @scheme-entry-border-color;
+
+                    .symbols-list {
+                        max-height: 100%;
+                        .item {
+                            font-size: 12px;
+                            padding: 5px 10px 4px 25px;
+                            &:active,
+                            &.active {
+                                position: relative;
+                                color: @color-primary;
+                                background: lighten(@color-neutral, 20%);
+                                border: solid @color-neutral-light;
+                                border-width: 1px 0 0;
+                                box-shadow: inset 0 -1px 0 0 @color-neutral-light !important;
+                            }
+                            &:hover {
+                                background: @color-neutral-lighter;
+                            }
+                            &-link {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+
+                }
+
+                .active {
+                    background: @bg-breadcrumb-item-5;
+                }
+            }
+        }
+    }
+
+    &-index {
+        > .header {
+            .row {
+                & + .row {
+                    margin-top: 10px;
+                }
+            }
+            .btn-group {
+                margin-bottom: 10px;
+
+                .btn {
+                    color: #696b6a;
+                    &.active {
+                        color: #38496f;
+                        background: #afbad3;
+                        border-color: #8b95ab;
+                        z-index: 3;
+                    }
+                }
+
+                &:first-child {
+                    margin-right: 16px;
+                }
+            }
+            .search-form {
+                margin-bottom: 22px;
+            }
+
+            .viewMode,
+            .rclDirection {
+                padding-right: 0;
+
+                .btn-group {
+                    display: block;
+                    overflow: hidden;
+                    margin: 0 0 20px;
+
+                    > .btn {
+                        padding: 5px 0;
+                    }
+                }
+            }
+            .title-type {
+                display: inline-block;
+                vertical-align: top;
+                margin-top: 10px;
+            }
+            select.form-control {
+                display: inline-block;
+                width: auto;
+            }
+
+            @media (max-width: 768px) {
+                & {
+                    margin: 20px 0;
+                    background-color: @bg-breadcrumb-item-5;
+                    border: 1px solid @bg-breadcrumb-item-4;
+                    padding: 20px 20px 0;
+                    border-radius: 3px;
+
+                    .viewMode,
+                    .rclDirection {
+                        padding-right: 0;
+
+                        .btn-group {
+                            > .btn {
+                                padding: 5px 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        > .body {
+            &.rcl-list {
+                margin-top: 0;
+
+                .table-rcl {
+                    > thead {
+                        th {
+                            &.old {
+                                width: 20%;
+                            }
+                            &.new {
+                                width: 40%;
+                            }
+                            &.def {
+                                width: 25%;
+                            }
+                            &.prj {
+                                width: 15%;
+                            }
+
+                            &.old-symbol,
+                            &.new-symbol {
+                                background: lighten(@color-neutral, 20%);
+                                text-align: left;
+                            }
+                                &.new-symbol {
+                                    border-left: 1px solid @color-neutral-light;
+                                }
+                        }
+                    }
+                    > tbody {
+                        .header {
+                            td {
+                                &.old-symbol,
+                                &.new-symbol,
+                                &.def-symbol,
+                                &.prj-symbol {
+                                    background: @color-neutral-lighter;
+                                    border-bottom: 1px solid @color-neutral-light;
+                                    padding-top: 20px;
+                                }
+                                &.old-symbol {
+                                    text-align: left;
+                                }
+                                &.new-symbol {
+                                    text-align: left;
+                                    border-left: 1px solid @color-neutral-light;
+                                }
+                                &.def-symbol,&.prj-symbol{
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

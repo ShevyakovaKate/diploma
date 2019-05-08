@@ -12,12 +12,12 @@ export class SchemaComponent implements OnInit {
   constructor(private analysisService: AnalysisService) { }
 
   ngOnInit() {
-    this.initJnaCall();
+    this.initCall();
   }
 
-  initJnaCall() {
+  initCall() {
 
-    this.analysisService.startAnalysis().subscribe(res =>
+    this.analysisService.startFFSAnalysis().subscribe(res =>
       this.returnValue = res,
       err =>
         this.returnValue = 'error'

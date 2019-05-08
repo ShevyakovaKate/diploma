@@ -8,8 +8,11 @@ export class AnalysisService {
 
   constructor(private http: HttpClient) {  }
 
-  public startAnalysis() {
-    return this.http.get('/api/analysis');
+  public startPhaseFrequencyAnalysis() {
+    return this.http.get('/api/frequency/model');
+
+  } public startFFSAnalysis() {
+    return this.http.get('/api/ffs/model');
   }
 
 
