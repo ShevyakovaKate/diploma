@@ -1,20 +1,37 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {SchemaComponent} from "./schema/schema.component";
+import {PhaseComponent} from "./modules/phase/phase.component";
+import {FfsComponent} from "./modules/ffs/ffs.component";
 
 const routes: Routes = [
-  { path: '', component: SchemaComponent }
- /* { path: 'hero/:id',      component: HeroDetailComponent },
+  { path: 'ffs',
+    component: FfsComponent,
+    data: {
+      text: 'ffs'
+    }
+    },
   {
-    path: 'heroes',
-    component: HeroListComponent,
-    data: { title: 'Heroes List' }
+    path: 'phase',
+    component: PhaseComponent,
+    data: {
+      text: 'phase'
+    }
   },
-  { path: '',
-    redirectTo: '/heroes',
-    pathMatch: 'full'
-  },*/
- /* { path: '**', component: PageNotFoundComponent }*/
+  {
+    path: '',
+    children: [
+      {
+        path: '',
+        redirectTo: 'phase',
+        pathMatch: 'full'
+      },
+      /*{ path: '**', component: PageNotFoundComponent }*/
+    ],
+    data: {
+      text: 'analysis'
+    }
+  }
+ /* { path: '**', component: PageNotFoundComponent } */
 ];
 
 @NgModule({
