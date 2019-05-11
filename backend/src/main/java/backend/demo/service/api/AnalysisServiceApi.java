@@ -1,10 +1,8 @@
 package backend.demo.service.api;
 
-import javafx.util.Pair;
-
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 public interface AnalysisServiceApi {
 
-    void startAnalysis(double[] inputValues, double[] parameters, double[] outputRealValues, Double sigma, int modelID);
+    double[] startAnalysis(double[] inputValues, double[] parameters, double[] outputRealValues, Double sigma, int modelID, double[] parametersMin, double[] parametersMax);
 }

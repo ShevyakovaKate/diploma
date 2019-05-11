@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AnalysisService} from "../../common/service/rest/analysis.service";
 
 @Component({
   selector: 'app-ffs',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FfsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private analysisService: AnalysisService) { }
 
   ngOnInit() {
+    this.analysisService.startFFSAnalysis().subscribe(res => console.log(res));
   }
 
 }

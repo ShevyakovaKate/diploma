@@ -1,47 +1,59 @@
 package backend.demo.controller.impl;
 
+import backend.demo.analysis.model.FFSModel;
+import backend.demo.analysis.model.PhaseFrequencyModel;
 import backend.demo.controller.api.AnalysisController;
+import backend.demo.model.InputFileData;
 import backend.demo.service.api.AnalysisServiceApi;
-import javafx.util.Pair;
+import backend.demo.service.api.ParseInputFileServiceApi;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.*;
+import java.nio.charset.Charset;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class AnalysisControllerImpl implements AnalysisController {
     private AnalysisServiceApi analysisService;
+    private ParseInputFileServiceApi parseInputFileService;
 
     @Autowired
-    public AnalysisControllerImpl(AnalysisServiceApi analysisService) {
+    public AnalysisControllerImpl(AnalysisServiceApi analysisService, ParseInputFileServiceApi parseInputFileService) {
         this.analysisService = analysisService;
+        this.parseInputFileService = parseInputFileService;
     }
 
     @Override
-    public void startPhaseFrequencyAnalysis() {
+    public double[] startPhaseFrequencyAnalysis() {
 
-        double[] frequencies = {1.26, 1.89, 2.52, 3.15, 3.78, 4.41, 5.04, 5.67, 6.3, 6.93, 7.56, 8.19, 8.82, 9.45, 10.08};
-        double[] realValues = {1.0565883705893604, 1.195460933461872, 1.27850564478808,
-                1.3325426878139262, 1.3701425992282288, 1.397683665116716,
-                1.418672154304646, 1.4351732008942881, 1.4484745932514569,
-                1.4594180827833088, 1.468575815076101, 1.4763496636791245,
-                1.4830298831906505, 1.4888311854788303, 1.4939157259483828};
+        double[] frequencies = {125663706.143592, 188495559.215388, 251327412.287183,314159265.358979, 376991118.430775,
+                439822971.502571, 502654824.574367,565486677.646163,628318530.717959,691150383.789755,
+                753982236.861550,816814089.933346,879645943.005142,942477796.076938,1005309649.14873};
+        double[] realValues = {0.262208317399775,
+                0.372639718622166,0.465926207507242,0.543815340888859,0.609226474949149,0.665029767699937,0.713561156116506,
+                0.756555827782014, 0.795245603018200,
+                0.830489486643397,0.862887399011352,0.892865325178978,0.920734449335539,0.946730505939556 ,0.971039299753354};
+        /*double[] startParameters = {0.33, 0.67, 1, 3}; */
+        /* startApproxParameters Phase model - a1, t1, a2, t2; */
+        /* startApproxParameters FFS model - N_eff, f_trip, tay_trip, tay_diff, a; */
+        double[] startParameters = {0.5, 2E-9, 0.5, 5E-9};
 
-        double[] startParameters = {0.33, 0.67, 1, 3};
+        double[] parametersMin = {1E-10, 0, 1E-10, 0};
+        double[] parametersMax = {1E10, 10E5, 1E10, 10E5};
 
         double sigma = 1.0;
 
        /* Double hi2Value = analysisService.startPhaseFrequencyAnalysis(frequencies, components, realValues, sigma);*/
-        analysisService.startAnalysis(frequencies, startParameters, realValues, sigma, 1 );
+        return analysisService.startAnalysis(frequencies, startParameters, realValues, sigma, PhaseFrequencyModel.ModelID, parametersMin, parametersMax);
 
     }
 
     @Override
-    public void startFFSAnalysis() {
+    public double[] startFFSAnalysis() {
 
         double[] tays = {0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4,  2.6, 2.8, 3.0, 3.4, 3.8, 4.2,
                 4.6, 5.0, 5.4, 5.8, 6.2, 6.6, 7.0, 7.4, 7.8, 8.2, 8.6, 9.0, 9.4, 9.8, 10.2, 10.6, 11.0, 11.4, 11.8, 12.2,
@@ -100,9 +112,17 @@ public class AnalysisControllerImpl implements AnalysisController {
         /*
          * this is fake values
          */
-       double[] inputParameters = {0.05, 0.6, 0.05, 50.0, 3.0};
+       double[] inputParameters = {0.07, 0.5, 0.7, 20.0, 2.0};
 
+       double[] parametersMin = {0, 0, 0, 0, 0};
+       double[] parametersMax = {10E10, 10E10, 10E10, 10E10, 10E10};
 
-       analysisService.startAnalysis(tays, inputParameters, realValues, sigma, 2);
+       return analysisService.startAnalysis(tays, inputParameters, realValues, sigma, FFSModel.ModelID, parametersMin, parametersMax);
+    }
+
+    @Override
+    public String _fileUpload(MultipartFile file) {
+        InputFileData inputFileData = parseInputFileService.parseInputData(file);
+        return inputFileData.getInputValues().toString();
     }
 }
