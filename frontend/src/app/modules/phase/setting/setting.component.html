@@ -1,51 +1,41 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
   <h1 class="h1 mb-0 text-gray-800">Dashboard</h1>
-  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+
 </div>
 
 <!-- Content Row -->
 <div class="row">
 
   <!-- Earnings (Monthly) Card Example -->
-  <div class="row col-xl-3 col-md-6 mb-4">
-    <label class="col-6 text-info p-0 m-0">Choose modal type:</label>
-    <!-- Basic dropdown -->
-    <div class="dropdown col-6 m-0 p-0">
-      <button class="btn btn-primary dropdown-toggle m-0" id="model-type-dropdown" type="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
-
-      <div class="dropdown-menu"  aria-labelledby="model-type-dropdown">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
-      </div>
-    </div>
-
-    <!-- Basic dropdown -->
-  </div>
-
-  <!-- Earnings (Monthly) Card Example -->
   <div class="col-xl-3 col-md-6 mb-4">
     <div class="card border-left-info shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
-          <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-            <div class="row no-gutters align-items-center">
-              <div class="col-auto">
-                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-              </div>
-              <div class="col">
-                <div class="progress progress-sm mr-2">
-                  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+          <div class="col-6">
+            <label class="col-6 text-info p-0 m-0">Choose modal type:</label>
+            <!-- Basic dropdown -->
+            <div class="dropdown col-6 m-0 p-0">
+              <button class="btn btn-primary dropdown-toggle m-0" id="model-type-dropdown" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
+
+              <div class="dropdown-menu"  aria-labelledby="model-type-dropdown">
+                <a class="dropdown-item" href="#">Action</a>
               </div>
             </div>
           </div>
-          <div class="col-auto">
-            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+
+          <div class="col-6">
+
+            <label class="col-6 text-info p-0 m-0">Choose modal type:</label>
+            <!-- Basic dropdown -->
+            <div class="dropdown col-6 m-0 p-0">
+              <button class="btn btn-primary dropdown-toggle m-0" id="model-component-dropdown" type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
+
+              <div class="dropdown-menu"  aria-labelledby="model-component-dropdown">
+                <a class="dropdown-item" href="#">Action</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -54,8 +44,12 @@
 
   <!-- Earnings (Monthly) Card Example -->
   <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-warning shadow h-100 py-2">
-      <app-upload-file></app-upload-file>
+    <div class="card border-left-warning shadow h-100 py-2 ">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <app-upload-file></app-upload-file>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -66,7 +60,7 @@
 <div class="row">
 
   <!-- Area Chart -->
-  <div class="col-xl-5 col-lg-5">
+  <div class="col-xl-6 col-lg-6">
     <div class="card border-left-primary shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -77,21 +71,38 @@
         <div id="table" class="table-editable">
           <table class="table table-bordered table-responsive-md table-striped text-center m-0">
             <tr>
-              <th class="text-center">Person Name</th>
-              <th class="text-center">Age</th>
-              <th class="text-center">Company Name</th>
-              <th class="text-center">Country</th>
-              <th class="text-center">City</th>
+              <th class="text-center">Perameter name</th>
+              <th class="text-center">Initial value</th>
+              <th class="text-center">Minimal value</th>
+              <th class="text-center">Maximal value</th>
             </tr>
-            <tr>
-              <td class="pt-3-half" contenteditable="true">Aurelia Vega</td>
-              <td class="pt-3-half" contenteditable="true">30</td>
-              <td class="pt-3-half" contenteditable="true">Deepends</td>
-              <td class="pt-3-half" contenteditable="true">Spain</td>
+            <tr *ngFor="let number of [].constructor(this.componentNumber)">
+              <td class="pt-3-half" contenteditable="true">a</td>
+              <td><input type='number' value="1"/></td>
+              <td><input type='number' value="1"/></td>
+              <td><input type='number' value="1"/></td>
+            </tr>
+            <tr *ngFor="let number of [].constructor(this.componentNumber)">
+              <td class="pt-3-half" contenteditable="true">t</td>
+              <td><input type='number' value="1"/>ns</td>
+              <td><input type='number' value="1"/>ns</td>
+              <td><input type='number' value="1"/>ns</td>
             </tr>
           </table>
         </div>
     </div>
   </div>
+
+</div>
+
+  <div class="col-xl-2 col-lg-2" >
+    <a href="#" class="mb-4 d-none d-block btn btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+
+    <a href="#" class="mb-4 d-none d-block btn btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+
+    <a href="#" class="mb-4 d-none d-block btn btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+  </div>
+
+
 
 </div>

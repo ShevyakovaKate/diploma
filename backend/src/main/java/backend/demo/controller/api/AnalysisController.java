@@ -17,5 +17,5 @@ public interface AnalysisController {
     @RequestMapping(method = GET , value = "/ffs/model")
     double[] startFFSAnalysis();
     @RequestMapping(method = POST, value = "/file")
-    String _fileUpload(MultipartFile file1);
+    String _fileUpload(MultipartFile file);
 }

@@ -9,6 +9,7 @@ import { FfsComponent } from './modules/ffs/ffs.component';
 import { PhaseComponent } from './modules/phase/phase.component';
 import {SettingComponent} from "./modules/phase/setting/setting.component";
 import {ResultsComponent} from "./modules/phase/results/results.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ResultsComponent} from "./modules/phase/results/results.component";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
