@@ -20,7 +20,7 @@ public class ParseInputFileServiceImpl implements ParseInputFileServiceApi {
         String fileContent;
 
         try {
-            fileContent = IOUtils.toString(file.getInputStream(), Charset.defaultCharset());
+            fileContent = IOUtils.toString(file.getInputStream(), Charset.defaultCharset().toString());
         }  catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {PhaseComponent} from "./modules/phase/phase.component";
 import {FfsComponent} from "./modules/ffs/ffs.component";
+import {ResultsComponent} from "./modules/phase/results/results.component";
+import {SettingComponent} from "./modules/phase/setting/setting.component";
 
 const routes: Routes = [
   { path: 'ffs',
@@ -13,6 +15,16 @@ const routes: Routes = [
   {
     path: 'phase',
     component: PhaseComponent,
+    children: [
+      {
+        path: 'setting',
+        component: SettingComponent
+      },
+      {
+        path: 'results',
+        component: ResultsComponent
+      }
+    ],
     data: {
       text: 'phase'
     }
@@ -22,16 +34,14 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'phase',
+        redirectTo: 'phase/setting',
         pathMatch: 'full'
-      },
-      /*{ path: '**', component: PageNotFoundComponent }*/
+      }
     ],
     data: {
       text: 'analysis'
     }
   }
- /* { path: '**', component: PageNotFoundComponent } */
 ];
 
 @NgModule({

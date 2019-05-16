@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AnalysisService} from "../../common/service/rest/analysis.service";
+import {RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-phase',
@@ -8,7 +9,7 @@ import {AnalysisService} from "../../common/service/rest/analysis.service";
 })
 export class PhaseComponent implements OnInit {
 
-  constructor(private analysisService: AnalysisService) { }
+  constructor(private analysisService: AnalysisService, private router: RouterModule) { }
 
   ngOnInit() {
     this.analysisService.startPhaseFrequencyAnalysis().subscribe(res => console.log(res));
