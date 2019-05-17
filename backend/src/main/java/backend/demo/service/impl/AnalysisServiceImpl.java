@@ -4,6 +4,7 @@ import backend.demo.analysis.model.FFSModel;
 import backend.demo.analysis.model.Hi2;
 import backend.demo.analysis.model.PhaseFrequencyModel;
 import backend.demo.service.api.AnalysisServiceApi;
+import backend.demo.service.api.ParseInputFileServiceApi;
 import javafx.util.Pair;
 import org.apache.commons.math3.linear.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,17 +44,20 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         double hi2New = 10000;///как задать его
 
         while ((lambda < lambdaMax) && ((Math.abs(hi2New - hi2 ) / hi2 ) > eps)) {
+            if(hi2New < hi2) {
+                hi2 = hi2New;
+            }
             //count new parameters
             double[] newParameters = optimizeParameters(parameters, inputValues, outputRealValues, sigma, modelID, lambda);
 
 
             newParameters = newParametersChecking(newParameters, parameters, parametersMin, parametersMax);
+
             //count new hi2
             double[] modelNew = countModel(newParameters, inputValues, modelID);
             hi2New = Hi2.countHi2(modelNew, outputRealValues, sigma, parametersNumber);
 
             if (hi2New < hi2) {
-                hi2 = hi2New;
                 parameters = newParameters;
                 lambda = 0.1 * lambda;
             } else {
@@ -98,7 +102,7 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         //add accessions to parameters
         double[] newParameters = new double[parameters.length];
         for (int i = 0; i < accessionArray.length; i++) {
-            newParameters[i] += accessionArray[i];
+            newParameters[i]= parameters[i] + accessionArray[i];
         }
 
         return newParameters;
@@ -117,9 +121,14 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         //count model
         double[] Fth = countModel(parameters, inputValues, modelID);
 
+        /*double[] jDerivative1 = countDerivative(inputValues,  parameters, Fth, 0, modelID);
+        double[] jDerivative2 = countDerivative(inputValues,  parameters, Fth, 1, modelID);
+        double[] jDerivative3 = countDerivative(inputValues,  parameters, Fth, 2, modelID);
+        double[] jDerivative4 = countDerivative(inputValues,  parameters, Fth, 3, modelID);*/
         //count A matrix
         for (int i = 0; i < parametersSize; i++) {
             for (int j = 0; j < parametersSize; j++) {
+
                 A[i][j] = countAElement(inputValues, parameters, Fth, sigma, i, j, modelID);
             }
         }
@@ -179,14 +188,14 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         double parameterIncrement = parameters[jEl] * 0.05;
         newParameters[jEl] = parameters[jEl] + parameterIncrement;
 
-        //increment input values
+        /*//increment input values
         double[] inputValuesIncremented = new double[inputValuesLength];
         for (int i = 0; i < inputValuesLength; i++) {
             inputValuesIncremented[i] = inputValues[i] + (inputValues[i] * 0.00001);
-        }
+        }*/
 
         //count new model
-        double[] Fnew =  countModel(newParameters, inputValuesIncremented, modelID);
+        double[] Fnew =  countModel(newParameters, inputValues, modelID);
 
         //derivative
         for (int i = 0; i < inputValuesLength; i++) {
@@ -211,10 +220,11 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         return accessionArray;
     }
     /*
-     * startApproxParameters Phase model - a1, t1, t2;
+     * startApproxParameters Phase model - a1, a2, t1, t2;
      * startApproxParameters FFS model - N_eff, f_trip, tay_trip, tay_diff, a;
      * */
-    private double[] countModel(double[] parameters, double[] inputValues, int modelID) {
+    @Override
+    public double[] countModel(double[] parameters, double[] inputValues, int modelID) {
         switch (modelID) {
             case PhaseFrequencyModel.ModelID: {
                 double a1 = parameters[0];
@@ -242,4 +252,6 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
             default: return new double[0];
         }
     }
+
+
 }

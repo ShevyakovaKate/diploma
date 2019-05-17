@@ -9,6 +9,7 @@ import backend.demo.service.api.ParseInputFileServiceApi;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -125,4 +126,12 @@ public class AnalysisControllerImpl implements AnalysisController {
         InputFileData inputFileData = parseInputFileService.parseInputData(file);
         return inputFileData.getInputValues().toString();
     }
+
+    @Override
+    public double[] getModel(String initParams, MultipartFile file, Integer id) {
+        double[] initParamsArray = parseInputFileService.parseInitParamsStringToArray(initParams);
+        InputFileData inputFileData = parseInputFileService.parseInputData(file);
+        return analysisService.countModel(initParamsArray, inputFileData.getInputValues(), id);
+    }
+
 }

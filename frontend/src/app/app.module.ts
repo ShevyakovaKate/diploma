@@ -10,6 +10,7 @@ import { PhaseComponent } from './modules/phase/phase.component';
 import {SettingComponent} from "./modules/phase/setting/setting.component";
 import {ResultsComponent} from "./modules/phase/results/results.component";
 import {ReactiveFormsModule} from "@angular/forms";
+import { TableComponent } from './modules/phase/setting/table/table.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     FfsComponent,
     PhaseComponent,
     SettingComponent,
-    ResultsComponent
+    ResultsComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

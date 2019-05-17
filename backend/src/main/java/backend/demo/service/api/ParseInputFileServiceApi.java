@@ -10,4 +10,6 @@ public interface ParseInputFileServiceApi {
      * @return Input file data as arrays of input data: input values, output values, sigma
      */
     InputFileData parseInputData(MultipartFile file);
+
+    double[] parseInitParamsStringToArray(String initParams);
 }

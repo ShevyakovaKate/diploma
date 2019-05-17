@@ -11,8 +11,14 @@ export class AnalysisService {
   public startPhaseFrequencyAnalysis() {
     return this.http.get('/api/frequency/model');
 
-  } public startFFSAnalysis() {
+  }
+
+  public startFFSAnalysis() {
     return this.http.get('/api/ffs/model');
+  }
+
+  public getModelWithInitialParamenter(initParams: number[], modelId: number) {
+    return this.http.post("/api/ffs/model/" + modelId, initParams);
   }
 
 

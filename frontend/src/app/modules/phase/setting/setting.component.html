@@ -63,32 +63,20 @@
   <div class="col-xl-6 col-lg-6">
     <div class="card border-left-primary shadow mb-4">
       <!-- Card Header - Dropdown -->
-      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+      <div class="card-header py-3 d-flex align-items-center flex-row">
+        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Earnings Overview</h6>
+        <div class="row col-5 ml-auto align-items-end ml-auto mr-1">
+          <h6 class="ml-2 mr-2 text-primary ml-auto">Component number:</h6>
+          <h6 class="ml-2 mr-2 text-primary ml-auto">{{this.componentNumber}}</h6>
+          <!-- Basic dropdown -->
+          <input type="number" class="form-control ml-auto" placeholder="Enter component number"  (keypress)="changeComponentNumber(myInput.value)"  #myInput />
+        </div>
+
       </div>
       <!-- Card Body -->
       <div class="card-body p-0">
         <div id="table" class="table-editable">
-          <table class="table table-bordered table-responsive-md table-striped text-center m-0">
-            <tr>
-              <th class="text-center">Perameter name</th>
-              <th class="text-center">Initial value</th>
-              <th class="text-center">Minimal value</th>
-              <th class="text-center">Maximal value</th>
-            </tr>
-            <tr *ngFor="let number of [].constructor(this.componentNumber)">
-              <td class="pt-3-half" contenteditable="true">a</td>
-              <td><input type='number' value="1"/></td>
-              <td><input type='number' value="1"/></td>
-              <td><input type='number' value="1"/></td>
-            </tr>
-            <tr *ngFor="let number of [].constructor(this.componentNumber)">
-              <td class="pt-3-half" contenteditable="true">t</td>
-              <td><input type='number' value="1"/>ns</td>
-              <td><input type='number' value="1"/>ns</td>
-              <td><input type='number' value="1"/>ns</td>
-            </tr>
-          </table>
+          <app-table [components$]="components$"></app-table>
         </div>
     </div>
   </div>
@@ -96,11 +84,11 @@
 </div>
 
   <div class="col-xl-2 col-lg-2" >
-    <a href="#" class="mb-4 d-none d-block btn btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <a href="#" class="btn-result mb-4 d-none d-block btn btn btn-primary shadow"><i class="fas fa-download fa-sm text-white-50"></i>Model with initial parameters</a>
 
-    <a href="#" class="mb-4 d-none d-block btn btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <a href="#" class="btn-result mb-4 d-none d-block btn btn btn-primary shadow"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 
-    <a href="#" class="mb-4 d-none d-block btn btn btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <a href="#" class="btn-result mb-4 d-none d-block btn btn btn-primary shadow"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
   </div>
 
 

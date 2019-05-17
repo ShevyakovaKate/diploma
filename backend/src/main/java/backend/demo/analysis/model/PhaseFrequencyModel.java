@@ -33,6 +33,6 @@ public class PhaseFrequencyModel {
             denominator += temp;
         }
 
-        return Math.atan(numerator/denominator);
+        return Math.atan2(numerator, denominator);
     }
 }

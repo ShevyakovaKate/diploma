@@ -2,12 +2,16 @@ package backend.demo.service.impl;
 
 import backend.demo.model.InputFileData;
 import backend.demo.service.api.ParseInputFileServiceApi;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ParseInputFileServiceImpl implements ParseInputFileServiceApi {
@@ -46,4 +50,16 @@ public class ParseInputFileServiceImpl implements ParseInputFileServiceApi {
 
         return inputFileData;
     }
+
+    @Override
+    public double[] parseInitParamsStringToArray(String initParams) {
+        String result = initParams.replaceAll("[\\{\\}]", "");
+        String[] stringArray = result.split(",");
+        double[] returnArray = new double[stringArray.length];
+        for (int i = 0; i < stringArray.length; i++) {
+            returnArray[i] = Double.valueOf(stringArray[i]);
+        }
+        return returnArray;
+    }
+
 }
