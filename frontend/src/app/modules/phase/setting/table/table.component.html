@@ -1,0 +1,22 @@
+<table class="table table-bordered table-responsive-md table-striped text-center m-0">
+  <tr>
+    <th class="text-center">Perameter name</th>
+    <th class="text-center">Initial value</th>
+    <th class="text-center">Minimal value</th>
+    <th class="text-center">Maximal value</th>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index ">
+    <td class="pt-3-half"><h3>α<h5>{{i + 1}}</h5></h3></td>
+    <td><input type='number' value="1" (change)="changeInitNumber($event, 'a', i+1)"/></td>
+    <td><input type='number' value="1" (change)="changeMinNumber($event, 'a', i+1)"/></td>
+    <td><input type='number' value="1" (change)="changeMaxNumber($event, 't', i+1)"/></td>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index">
+    <td class="pt-3-half"><h3>б<h5>{{i + 1}}</h5> (ns) </h3></td>
+    <td><input type='number' value="1" (change)="changeInitNumber($event, 't', i+1)"/></td>
+    <td><input type='number' value="1" (change)="changeMinNumber($event, 't', i+1)"/></td>
+    <td><input type='number' value="1" (change)="changeMaxNumber($event, 't', i+1)"/></td>
+  </tr>
+</table>
+
+{{refresh()}}
