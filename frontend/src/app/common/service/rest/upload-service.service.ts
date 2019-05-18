@@ -7,13 +7,13 @@ import {map} from "rxjs/operators";
 })
 export class UploadServiceService {
 
-  uploadURL: string = "http://localhost:8080/file";
+  uploadURL: string = "/api/file";
 
   constructor(private httpClient: HttpClient) { }
 
   public upload(file) {
-    let formData: FormData = new FormData();
-    formData.append('file', file);
-    return this.httpClient.post(this.uploadURL, formData);
+    const uploadData = new FormData();
+    uploadData.append('file', file, file.name);
+    return this.httpClient.post(this.uploadURL, uploadData);
   }
 }

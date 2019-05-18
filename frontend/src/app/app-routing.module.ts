@@ -29,19 +29,10 @@ const routes: Routes = [
       text: 'phase'
     }
   },
-  {
-    path: '',
-    children: [
-      {
-        path: '',
-        redirectTo: 'phase/setting',
-        pathMatch: 'full'
-      }
-    ],
-    data: {
-      text: 'analysis'
-    }
-  }
+  { path: '',
+    redirectTo: '/phase/setting',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

@@ -12,7 +12,6 @@ export class PhaseComponent implements OnInit {
   constructor(private analysisService: AnalysisService, private router: RouterModule) { }
 
   ngOnInit() {
-    this.analysisService.startPhaseFrequencyAnalysis().subscribe(res => console.log(res));
   }
 
 }

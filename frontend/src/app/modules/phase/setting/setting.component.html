@@ -47,7 +47,7 @@
     <div class="card border-left-warning shadow h-100 py-2 ">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
-          <app-upload-file></app-upload-file>
+          <app-upload-file (fileEvent)="fileChanged($event)"></app-upload-file>
         </div>
       </div>
     </div>
@@ -84,11 +84,14 @@
 </div>
 
   <div class="col-xl-2 col-lg-2" >
-    <a href="#" class="btn-result mb-4 d-none d-block btn btn btn-primary shadow"><i class="fas fa-download fa-sm text-white-50"></i>Model with initial parameters</a>
+    <a class="btn-result mb-4 d-none d-block btn btn btn-primary shadow" (click)="modelWithInitialParameters()">
+      <i class="fas fa-download fa-sm text-white-50"></i>Model with initial parameters</a>
 
-    <a href="#" class="btn-result mb-4 d-none d-block btn btn btn-primary shadow"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <a class="btn-result mb-4 d-none d-block btn btn btn-primary shadow">
+      <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 
-    <a href="#" class="btn-result mb-4 d-none d-block btn btn btn-primary shadow"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <a class="btn-result mb-4 d-none d-block btn btn btn-primary shadow">
+      <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
   </div>
 
 

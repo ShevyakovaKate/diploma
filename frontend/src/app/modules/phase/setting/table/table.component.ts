@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {OnChanges} from "@angular/core/src/metadata/lifecycle_hooks";
 import {BehaviorSubject, Observable} from "rxjs";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-table',
@@ -19,22 +20,39 @@ import {BehaviorSubject, Observable} from "rxjs";
 export class TableComponent implements OnInit {
   @Input() components$: Observable<number[]>;
   _components: number[];
+  a: number;
 
-  @Output() initValues: string[];
-  @Output() minValues: string[];
-  @Output() maxValues: string[];
+  initValues: string[];
+  minValues: string[];
+  maxValues: string[];
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.components$.subscribe(items => {
       this._components = items;
     });
+    this.a = 1 / this._components.length;
 
     this.initValues = new Array<string>(this._components.length);
-
     this.minValues = new Array<string>(this._components.length);
     this.maxValues = new Array<string>(this._components.length);
+    this.ngOnAfterInit();
+  }
+
+  ngOnAfterInit() {
+    this._components.forEach(component => {
+        this.initValues[component - 1] = this.a.toString();
+        this.initValues[component] = "1e-9";
+
+        this.minValues[component - 1] = "1";
+        this.minValues[component] = "1e-9";
+
+        this.minValues[component - 1] = "10";
+        this.minValues[component] = "10e-9";
+      }
+    )
   }
 
   refresh() {
@@ -51,8 +69,7 @@ export class TableComponent implements OnInit {
         break;
       }
       case 't': {
-        this.initValues[(componentNumber - 1) + this._components.length] = ($event.target.value * 0.000000001)
-          .toExponential().toString();
+        this.initValues[(componentNumber - 1) + this._components.length] = $event.target.value  + "E-9";
         break;
       }
     }
@@ -66,8 +83,7 @@ export class TableComponent implements OnInit {
         break;
       }
       case 't': {
-        this.minValues[(componentNumber - 1) + this._components.length] = ($event.target.value * 0.000000001)
-          .toExponential().toString();
+        this.minValues[(componentNumber - 1) + this._components.length] = $event.target.value  + "E-9";
         break;
       }
     }
@@ -81,15 +97,11 @@ export class TableComponent implements OnInit {
         break;
       }
       case 't': {
-        this.maxValues[(componentNumber - 1) + this._components.length] = ($event.target.value * 0.000000001)
-      .toExponential().toString();
+        this.maxValues[(componentNumber - 1) + this._components.length] = $event.target.value  + "E-9";
         break;
       }
     }
     console.log(this.maxValues);
   }
-
-
-
 
 }
