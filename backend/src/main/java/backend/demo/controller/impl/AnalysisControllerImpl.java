@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -127,11 +129,22 @@ public class AnalysisControllerImpl implements AnalysisController {
         return inputFileData.getInputValues().toString();
     }
 
+    /**
+     *
+     * @param initParams
+     * @param file
+     * @param id
+     * @return 3 arrays = input values, theoretical model, real model
+     */
     @Override
-    public double[] getModel(String initParams, MultipartFile file, Integer id) {
+    public List<double[]> getModel(String initParams, MultipartFile file, Integer id) {
         double[] initParamsArray = parseInputFileService.parseInitParamsStringToArray(initParams);
         InputFileData inputFileData = parseInputFileService.parseInputData(file);
-        return analysisService.countModel(initParamsArray, inputFileData.getInputValues(), id);
+        List<double[]> returnModel = new ArrayList<>();
+        returnModel.add(inputFileData.getInputValues());
+        returnModel.add(analysisService.countModel(initParamsArray, inputFileData.getInputValues(), id));
+        returnModel.add(inputFileData.getOutputValues());
+        return returnModel;
     }
 
 }

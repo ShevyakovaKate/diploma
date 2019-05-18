@@ -44,8 +44,15 @@ export class SettingComponent implements OnInit{
   modelWithInitialParameters() {
     let initValues = this.tableComponent.initValues;
     this.analysisService.getModelWithParamenter(this.file, initValues.toString(), 1).subscribe(
-      res => {
-        this.router.navigate(["/phase/results"]);
+      (res: Array<number>) => {
+        console.log(res);
+        /*localStorage.removeItem('allFrequencies');
+        localStorage.removeItem('allTheoreticalModelValues');
+        localStorage.removeItem('allRealModelValues');*/
+        localStorage.setItem('allFrequencies', JSON.stringify(res[0]));
+        localStorage.setItem('allTheoreticalModelValues', JSON.stringify(res[1]));
+        localStorage.setItem('allRealModelValues', JSON.stringify(res[2]));
+        this.router.navigate(['/phase/results']);
       },
       error => {
         console.log(error);

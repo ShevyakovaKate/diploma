@@ -26,7 +26,7 @@ public interface AnalysisController {
 
     @RequestMapping(value = "/model/{id}", method = RequestMethod.POST,
             consumes = {"multipart/form-data"})
-    double[] getModel(String initParams,
+    List<double[]> getModel(String initParams,
             MultipartFile file, @PathVariable Integer id  );
 
 
