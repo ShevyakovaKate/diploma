@@ -25,6 +25,7 @@ export class SettingComponent implements OnInit{
               private router: Router) {}
 
   ngOnInit() {
+
   }
 
   changeComponentNumber(value) {
@@ -37,8 +38,7 @@ export class SettingComponent implements OnInit{
 
   fileChanged(file) {
     console.log(file);
-    this.file = file;
-
+    localStorage.setItem('file', file);
   }
 
   modelWithInitialParameters() {
@@ -46,9 +46,6 @@ export class SettingComponent implements OnInit{
     this.analysisService.getModelWithParamenter(this.file, initValues.toString(), 1).subscribe(
       (res: Array<number>) => {
         console.log(res);
-        /*localStorage.removeItem('allFrequencies');
-        localStorage.removeItem('allTheoreticalModelValues');
-        localStorage.removeItem('allRealModelValues');*/
         localStorage.setItem('allFrequencies', JSON.stringify(res[0]));
         localStorage.setItem('allTheoreticalModelValues', JSON.stringify(res[1]));
         localStorage.setItem('allRealModelValues', JSON.stringify(res[2]));
@@ -58,6 +55,10 @@ export class SettingComponent implements OnInit{
         console.log(error);
       }
     );
+  }
+
+  startAnalysis() {
+    this.analysisService
   }
 
 }

@@ -3,6 +3,9 @@ package backend.demo.service.impl;
 import backend.demo.analysis.model.FFSModel;
 import backend.demo.analysis.model.Hi2;
 import backend.demo.analysis.model.PhaseFrequencyModel;
+import backend.demo.controller.api.AnalysisController;
+import backend.demo.model.AnalysisData;
+import backend.demo.model.Parameter;
 import backend.demo.service.api.AnalysisServiceApi;
 import backend.demo.service.api.ParseInputFileServiceApi;
 import javafx.util.Pair;
@@ -24,7 +27,8 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
     public AnalysisServiceImpl(){}
 
     @Override
-    public double[] startAnalysis(double[] inputValues, double[] parameters, double[] outputRealValues, Double sigma, int modelID, double[] parametersMin, double[] parametersMax) {
+    public AnalysisData startAnalysis(double[] inputValues, List<Parameter> parametersList, double[] outputRealValues,
+                                  Double sigma, int modelID) {
         switch (modelID) {
             case PhaseFrequencyModel.ModelID: {
                 parametersNumber = phaseParametersNumbers;
@@ -32,8 +36,18 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
             }
             case FFSModel.ModelID: {parametersNumber = FFSParametersNumbers;
             break;}
-
         }
+
+        //get parameters as arrays
+        double[] parameters = new double[parametersList.size()];
+        double[] parametersMin = new double[parametersList.size()];
+        double[] parametersMax = new double[parametersList.size()];
+        for (int i = 0; i < parametersList.size(); i++) {
+            parameters[i] = parametersList.get(i).getValue();
+            parametersMin[i] = parametersList.get(i).getMinValue();
+            parametersMax[i] = parametersList.get(i).getMaxValue();
+        }
+
         //count hi2
         double[] model = countModel(parameters, inputValues, modelID);
         double hi2 = Hi2.countHi2(model, outputRealValues, sigma, parametersNumber);
@@ -65,7 +79,7 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
             }
         }
 
-        return parameters;
+        return transformToAnalysisData(parametersList, parameters, hi2New);
 
     }
 
@@ -251,6 +265,26 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
             }
             default: return new double[0];
         }
+    }
+
+    private AnalysisData transformToAnalysisData(List<Parameter> initParametersList, double[] parameters,  double hi2New) {
+        AnalysisData analysisData = new AnalysisData();
+        List<Parameter> parameterList = new ArrayList<>();
+
+        for (int i = 0; i < parameters.length; i++) {
+            Parameter parameter = new Parameter();
+            String parameterName = initParametersList.get(i).getName();
+            double parameterValue = initParametersList.get(i).getValue();
+
+            parameter.setName(parameterName);
+            parameter.setValue(parameterValue);
+            parameterList.add(parameter);
+        }
+
+        analysisData.setParameters(parameterList);
+        analysisData.setHi2(hi2New);
+
+        return analysisData;
     }
 
 

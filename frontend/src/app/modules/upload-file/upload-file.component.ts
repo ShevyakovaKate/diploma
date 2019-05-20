@@ -20,6 +20,12 @@ export class UploadFileComponent implements OnInit {
     if (event.target.files.length > 0) {
       console.log(event.target.files[0]);
     }
+    var reader = new FileReader();
+    reader.onload = (event: any) => {
+       console.log(event.target.result);
+    };
+
+    console.log(reader.readAsDataURL(event.target.files[0]));
     this.fileEvent.emit(event.target.files[0]);
 
 

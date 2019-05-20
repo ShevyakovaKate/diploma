@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {init} from "protractor/built/launcher";
+import {Parameter} from "../../../models/parameter";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,14 @@ export class AnalysisService {
 
     return this.http.post<any>("/api/model/" + modelId, formData);
 
+  }
+
+  public startAnalysis(file: File, initParams: string, modelId: number) {
+    let formData:FormData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append("initParams", initParams);
+    new Parameter();
+    return this.http.post<any>("/api/analysis/" + modelId, formData);
   }
 
 

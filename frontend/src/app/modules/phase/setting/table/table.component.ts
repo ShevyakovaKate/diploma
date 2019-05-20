@@ -10,6 +10,7 @@ import {
 import {OnChanges} from "@angular/core/src/metadata/lifecycle_hooks";
 import {BehaviorSubject, Observable} from "rxjs";
 import {forEach} from "@angular/router/src/utils/collection";
+import {Parameter} from "../../../../models/parameter";
 
 @Component({
   selector: 'app-table',
@@ -21,6 +22,8 @@ export class TableComponent implements OnInit {
   @Input() components$: Observable<number[]>;
   _components: number[];
   a: number;
+
+  parameters: Parameter[];
 
   initValues: string[];
   minValues: string[];
@@ -34,6 +37,8 @@ export class TableComponent implements OnInit {
       this._components = items;
     });
     this.a = 1 / this._components.length;
+
+    //todo взаимосвязь компонентов и параметров
 
     this.initValues = new Array<string>(this._components.length);
     this.minValues = new Array<string>(this._components.length);
@@ -65,11 +70,11 @@ export class TableComponent implements OnInit {
 
     switch (paramName) {
       case 'a': {
-        this.initValues[componentNumber - 1] = $event.target.value;
+        this.initValues[(componentNumber - 1)* this._components.length] = $event.target.value;
         break;
       }
       case 't': {
-        this.initValues[(componentNumber - 1) + this._components.length] = $event.target.value  + "E-9";
+        this.initValues[(componentNumber * this._components.length) - 1] = $event.target.value  + "E-9";
         break;
       }
     }

@@ -3,7 +3,9 @@ package backend.demo.controller.impl;
 import backend.demo.analysis.model.FFSModel;
 import backend.demo.analysis.model.PhaseFrequencyModel;
 import backend.demo.controller.api.AnalysisController;
+import backend.demo.model.AnalysisData;
 import backend.demo.model.InputFileData;
+import backend.demo.model.Parameter;
 import backend.demo.service.api.AnalysisServiceApi;
 import backend.demo.service.api.ParseInputFileServiceApi;
 import org.apache.commons.io.IOUtils;
@@ -30,7 +32,7 @@ public class AnalysisControllerImpl implements AnalysisController {
         this.parseInputFileService = parseInputFileService;
     }
 
-    @Override
+    /*@Override
     public double[] startPhaseFrequencyAnalysis() {
 
         double[] frequencies = {125663706.143592, 188495559.215388, 251327412.287183,314159265.358979, 376991118.430775,
@@ -40,9 +42,9 @@ public class AnalysisControllerImpl implements AnalysisController {
                 0.372639718622166,0.465926207507242,0.543815340888859,0.609226474949149,0.665029767699937,0.713561156116506,
                 0.756555827782014, 0.795245603018200,
                 0.830489486643397,0.862887399011352,0.892865325178978,0.920734449335539,0.946730505939556 ,0.971039299753354};
-        /*double[] startParameters = {0.33, 0.67, 1, 3}; */
-        /* startApproxParameters Phase model - a1, t1, a2, t2; */
-        /* startApproxParameters FFS model - N_eff, f_trip, tay_trip, tay_diff, a; */
+        *//*double[] startParameters = {0.33, 0.67, 1, 3}; *//*
+        *//* startApproxParameters Phase model - a1, t1, a2, t2; *//*
+        *//* startApproxParameters FFS model - N_eff, f_trip, tay_trip, tay_diff, a; *//*
         double[] startParameters = {0.5, 2E-9, 0.5, 5E-9};
 
         double[] parametersMin = {1E-10, 0, 1E-10, 0};
@@ -50,7 +52,7 @@ public class AnalysisControllerImpl implements AnalysisController {
 
         double sigma = 1.0;
 
-       /* Double hi2Value = analysisService.startPhaseFrequencyAnalysis(frequencies, components, realValues, sigma);*/
+       *//* Double hi2Value = analysisService.startPhaseFrequencyAnalysis(frequencies, components, realValues, sigma);*//*
         return analysisService.startAnalysis(frequencies, startParameters, realValues, sigma, PhaseFrequencyModel.ModelID, parametersMin, parametersMax);
 
     }
@@ -103,32 +105,32 @@ public class AnalysisControllerImpl implements AnalysisController {
 
         Double sigma = 1.0;
 
-   /*     *//*
+   *//*     *//**//*
          * this is real values
-         *//*
+         *//**//*
         Double N_eff = 0.05;
         Double f_trip = 0.6;
         Double tay_trip = 0.5;
         Double tay_diff = 50.0;
         Double a= 3.0;
-*/
-        /*
+*//*
+        *//*
          * this is fake values
-         */
+         *//*
        double[] inputParameters = {0.07, 0.5, 0.7, 20.0, 2.0};
 
        double[] parametersMin = {0, 0, 0, 0, 0};
        double[] parametersMax = {10E10, 10E10, 10E10, 10E10, 10E10};
 
        return analysisService.startAnalysis(tays, inputParameters, realValues, sigma, FFSModel.ModelID, parametersMin, parametersMax);
-    }
+    }*/
 
-    @Override
+   /* @Override
     public String _fileUpload(MultipartFile file) {
         InputFileData inputFileData = parseInputFileService.parseInputData(file);
         return inputFileData.getInputValues().toString();
     }
-
+*/
     /**
      *
      * @param initParams
@@ -147,4 +149,14 @@ public class AnalysisControllerImpl implements AnalysisController {
         return returnModel;
     }
 
+    @Override
+    public AnalysisData startAnalysis(List<Parameter> initParams, MultipartFile file, Integer id) {
+        InputFileData inputFileData = parseInputFileService.parseInputData(file);
+
+        return analysisService.startAnalysis(inputFileData.getInputValues(),
+                initParams,
+                inputFileData.getOutputValues(),
+                inputFileData.getSigma(),
+                FFSModel.ModelID);
+    }
 }

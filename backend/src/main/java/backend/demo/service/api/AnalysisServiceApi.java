@@ -1,10 +1,14 @@
 package backend.demo.service.api;
 
-import org.springframework.stereotype.Service;
+import backend.demo.model.AnalysisData;
+import backend.demo.model.Parameter;
+
+import java.util.List;
 
 public interface AnalysisServiceApi {
 
-    double[] startAnalysis(double[] inputValues, double[] parameters, double[] outputRealValues, Double sigma, int modelID, double[] parametersMin, double[] parametersMax);
+    AnalysisData startAnalysis(double[] inputValues, List<Parameter> parameters,
+                               double[] outputRealValues, Double sigma, int modelID);
 
     /*
      * startApproxParameters Phase model - a1, a2, t1, t2;
