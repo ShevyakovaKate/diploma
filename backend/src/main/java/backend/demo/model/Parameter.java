@@ -2,40 +2,50 @@ package backend.demo.model;
 
 public class Parameter {
 
-    private String name;
-    private double value;
-    private double minValue;
-    private double maxValue;
+    private String _name;
+    private double _value;
+    private double _minValue;
+    private double _maxValue;
 
-    public String getName() {
-        return name;
+    public Parameter() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Parameter(String _name, double _value, double _minValue, double _maxValue) {
+        this._name = _name;
+        this._value = _value;
+        this._minValue = _minValue;
+        this._maxValue = _maxValue;
     }
 
-    public double getValue() {
-        return value;
+    public String get_name() {
+        return _name;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void set_name(String _name) {
+        this._name = _name;
     }
 
-    public double getMinValue() {
-        return minValue;
+    public double get_value() {
+        return _value;
     }
 
-    public void setMinValue(double minValue) {
-        this.minValue = minValue;
+    public void set_value(double _value) {
+        this._value = _value;
     }
 
-    public double getMaxValue() {
-        return maxValue;
+    public double get_minValue() {
+        return _minValue;
     }
 
-    public void setMaxValue(double maxValue) {
-        this.maxValue = maxValue;
+    public void set_minValue(double _minValue) {
+        this._minValue = _minValue;
+    }
+
+    public double get_maxValue() {
+        return _maxValue;
+    }
+
+    public void set_maxValue(double _maxValue) {
+        this._maxValue = _maxValue;
     }
 }

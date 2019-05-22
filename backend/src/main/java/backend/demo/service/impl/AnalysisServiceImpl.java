@@ -43,9 +43,9 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         double[] parametersMin = new double[parametersList.size()];
         double[] parametersMax = new double[parametersList.size()];
         for (int i = 0; i < parametersList.size(); i++) {
-            parameters[i] = parametersList.get(i).getValue();
-            parametersMin[i] = parametersList.get(i).getMinValue();
-            parametersMax[i] = parametersList.get(i).getMaxValue();
+            parameters[i] = parametersList.get(i).get_value();
+            parametersMin[i] = parametersList.get(i).get_minValue();
+            parametersMax[i] = parametersList.get(i).get_maxValue();
         }
 
         //count hi2
@@ -242,8 +242,8 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         switch (modelID) {
             case PhaseFrequencyModel.ModelID: {
                 double a1 = parameters[0];
-                double a2 = parameters[2];
-                double t1 = parameters[1];
+                double a2 = parameters[1];
+                double t1 = parameters[2];
                 double t2 = parameters[3];
                 Pair<Double, Double> component1 = new Pair<>(a1, t1);
                 Pair<Double, Double> component2 = new Pair<>(a2, t2);
@@ -273,11 +273,15 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
 
         for (int i = 0; i < parameters.length; i++) {
             Parameter parameter = new Parameter();
-            String parameterName = initParametersList.get(i).getName();
-            double parameterValue = initParametersList.get(i).getValue();
+            String parameterName = initParametersList.get(i).get_name();
+            double parameterMinValue = initParametersList.get(i).get_minValue();
+            double parameterMaxValue = initParametersList.get(i).get_maxValue();
+            double parameterValue = parameters[i];
 
-            parameter.setName(parameterName);
-            parameter.setValue(parameterValue);
+            parameter.set_name(parameterName);
+            parameter.set_value(parameterValue);
+            parameter.set_minValue(parameterMinValue);
+            parameter.set_maxValue(parameterMaxValue);
             parameterList.add(parameter);
         }
 

@@ -8,6 +8,8 @@ import backend.demo.model.InputFileData;
 import backend.demo.model.Parameter;
 import backend.demo.service.api.AnalysisServiceApi;
 import backend.demo.service.api.ParseInputFileServiceApi;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -150,13 +152,20 @@ public class AnalysisControllerImpl implements AnalysisController {
     }
 
     @Override
-    public AnalysisData startAnalysis(List<Parameter> initParams, MultipartFile file, Integer id) {
+    public AnalysisData startAnalysis(String initParams, MultipartFile file, Integer id) {
         InputFileData inputFileData = parseInputFileService.parseInputData(file);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Parameter> parameters = new ArrayList<>();
+        try {
+            parameters = objectMapper.readValue(initParams, new TypeReference<List<Parameter>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();;
+        }
         return analysisService.startAnalysis(inputFileData.getInputValues(),
-                initParams,
+                parameters,
                 inputFileData.getOutputValues(),
                 inputFileData.getSigma(),
-                FFSModel.ModelID);
+                id);
     }
 }

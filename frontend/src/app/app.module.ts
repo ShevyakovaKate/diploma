@@ -9,7 +9,7 @@ import { FfsComponent } from './modules/ffs/ffs.component';
 import { PhaseComponent } from './modules/phase/phase.component';
 import {SettingComponent} from "./modules/phase/setting/setting.component";
 import {ResultsComponent} from "./modules/phase/results/results.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TableComponent } from './modules/phase/setting/table/table.component';
 
 @NgModule({
@@ -26,7 +26,8 @@ import { TableComponent } from './modules/phase/setting/table/table.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

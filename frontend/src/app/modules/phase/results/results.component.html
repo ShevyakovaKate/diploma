@@ -12,21 +12,35 @@
     </div>
   </div>
 
-  <!-- Earnings (Monthly) Card Example -->
-  <div class="col-xl-4 col-md-4 mb-4 h-50">
-    <div class="card border-left-warning shadow h-100 py-2 ">
-      <div class="card-body">
-        <div class="no-gutters align-items-center">
-          <div>
-            <h3>Result Parameters: </h3>
-          </div>
-          <div>
-            <h3>Result χ<sup>2</sup>: </h3>
-          </div>
+  <div class="col-xl-4 col-lg-4">
+    <div class="card border-left-primary shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex align-items-center flex-row">
+        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Earnings Overview</h6>
+        <div class="row col-5 ml-auto align-items-end ml-auto mr-1">
+          <h6 class="ml-2 mr-2 text-primary ml-auto">Component number:</h6>
+          <!-- Basic dropdown -->
+          <input type="number" class="form-control ml-auto" placeholder="Enter component number"  (keypress)="changeComponentNumber(myInput.value)"  #myInput />
+        </div>
 
+      </div>
+      <!-- Card Body -->
+      <div class="card-body p-0">
+        <div id="table" class="table-editable">
+          <table class="table table-bordered table-responsive-md table-striped text-center m-0">
+            <tr>
+              <th class="text-center">Parameter name</th>
+              <th class="text-center">Value</th>
+            </tr>
+            <tr *ngFor="let parameter of parameters">
+              <td class="pt-3-half">{{parameter.name}}</td>
+              <td>{{parameter.value}}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
   </div>
+
 
 </div>

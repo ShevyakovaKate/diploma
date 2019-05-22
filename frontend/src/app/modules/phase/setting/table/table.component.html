@@ -1,16 +1,21 @@
 <table class="table table-bordered table-responsive-md table-striped text-center m-0">
   <tr>
-    <th class="text-center">Perameter name</th>
+    <th class="text-center">Parameter name</th>
     <th class="text-center">Initial value</th>
     <th class="text-center">Minimal value</th>
     <th class="text-center">Maximal value</th>
   </tr>
   <tr *ngFor="let number of components$ | async; let i = index ">
-    <td class="pt-3-half"><h3>α<sub>{{i + 1}}</sub></h3></td>
-    <td><input type='number' value="{{parameters[i].name}}" (change)="changeInitNumber($event, 'a', i+1)"/></td>
-    <td><input type='number' value="{{parameters[i].minValue}}" (change)="changeMinNumber($event, 'a', i+1)"/></td>
-    <td><input type='number' value="{{parameters[i].minValue}}" (change)="changeMaxNumber($event, 't', i+1)"/></td>
+    <td class="pt-3-half"><h3>{{parametersA[i].name}}</h3></td>
+    <td><input type='number' [value]="parametersA[i].value" required/></td>
+    <td><input type='number' [value]="parametersA[i].minValue" required/></td>
+    <td><input type='number' [value]="parametersA[i].maxValue" required/></td>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index ">
+    <td class="pt-3-half"><h3>{{parametersT[i].name}}</h3></td>
+    <td><input type='number' [value]="parametersT[i].value" required/></td>
+    <td><input type='number' [value]="parametersT[i].minValue" required/></td>
+    <td><input type='number' [value]="parametersT[i].maxValue" required /></td>
   </tr>
 </table>
 
-{{refresh()}}
