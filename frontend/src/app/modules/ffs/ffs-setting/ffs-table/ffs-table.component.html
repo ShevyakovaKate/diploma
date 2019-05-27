@@ -1,0 +1,39 @@
+<table class="table table-bordered table-responsive-md table-striped text-center m-0">
+  <tr>
+    <th class="text-center">Parameter name</th>
+    <th class="text-center">Initial value</th>
+    <th class="text-center">Minimal value</th>
+    <th class="text-center">Maximal value</th>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index ">
+    <td class="pt-3-half"><h3>{{parametersA[i]._name}}</h3></td>
+    <td><input type='number' [value]="parametersA[i]._value" required/></td>
+    <td><input type='number' [value]="parametersA[i]._minValue" required/></td>
+    <td><input type='number' [value]="parametersA[i]._maxValue" required/></td>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index ">
+    <td class="pt-3-half"><h3>{{parametersTaytrip[i]._name}}</h3></td>
+    <td><input type='number' [value]="parametersTaytrip[i]._value" required/></td>
+    <td><input type='number' [value]="parametersTaytrip[i]._minValue" required/></td>
+    <td><input type='number' [value]="parametersTaytrip[i]._maxValue" required /></td>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index ">
+    <td class="pt-3-half"><h3>{{parametersTaydiff[i]._name}}</h3></td>
+    <td><input type='number' [value]="parametersTaydiff[i]._value" required/></td>
+    <td><input type='number' [value]="parametersTaydiff[i]._minValue" required/></td>
+    <td><input type='number' [value]="parametersTaydiff[i]._maxValue" required /></td>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index ">
+    <td class="pt-3-half"><h3>{{parametersFtrip[i]._name}}</h3></td>
+    <td><input type='number' [value]="parametersFtrip[i]._value" required/></td>
+    <td><input type='number' [value]="parametersFtrip[i]._minValue" required/></td>
+    <td><input type='number' [value]="parametersFtrip[i]._maxValue" required /></td>
+  </tr>
+  <tr *ngFor="let number of components$ | async; let i = index ">
+    <td class="pt-3-half"><h3>{{parametersNeff[i]._name}}</h3></td>
+    <td><input type='number' [value]="parametersNeff[i]._value" required/></td>
+    <td><input type='number' [value]="parametersNeff[i]._minValue" required/></td>
+    <td><input type='number' [value]="parametersNeff[i]._maxValue" required /></td>
+  </tr>
+</table>
+

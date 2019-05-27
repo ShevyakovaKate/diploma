@@ -1,0 +1,43 @@
+<div class="row mb-4 mt-4">
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-8 col-md-8 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div>
+          <canvas id="canvas">{{ chart }}</canvas>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-4 col-lg-4">
+    <div class="card border-left-primary shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex align-items-center flex-row">
+        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Earnings Overview</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body p-0">
+        <div id="table" class="table-editable">
+          <table class="table table-bordered table-responsive-md table-striped text-center m-0">
+            <tr>
+              <th class="text-center">Parameter name</th>
+              <th class="text-center">Value</th>
+            </tr>
+            <tr *ngFor="let parameter of parameters">
+              <td class="pt-3-half">{{parameter._name}}</td>
+              <td>{{parameter._value}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer p-0">
+        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Target criterion: Hi2 = {{hi2}}</h6>
+      </div>
+    </div>
+  </div>
+
+
+</div>
