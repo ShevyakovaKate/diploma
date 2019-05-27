@@ -90,6 +90,8 @@ export class SettingComponent implements OnInit{
     this.analysisService.startAnalysis(this.file, parameters, 1).subscribe(
       (res: AnalysisData) => {
         console.log(res);
+        localStorage.removeItem('parameters');
+        localStorage.removeItem('hi2');
         localStorage.setItem('parameters',JSON.stringify(res.parameters));
         localStorage.setItem('hi2', JSON.stringify(res.hi2));
         this.router.navigate(['/phase/results']);

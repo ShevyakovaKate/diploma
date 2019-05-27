@@ -1,14 +1,12 @@
 package backend.demo.service.impl;
 
-import backend.demo.analysis.model.FFSModel;
-import backend.demo.analysis.model.Hi2;
-import backend.demo.analysis.model.PhaseFrequencyModel;
-import backend.demo.controller.api.AnalysisController;
+import backend.demo.analysisFunctions.model.Model;
+import backend.demo.analysisFunctions.model.impl.FFSModel;
+import backend.demo.analysisFunctions.targetCriterion.Hi2;
+import backend.demo.analysisFunctions.model.impl.PhaseFrequencyModel;
 import backend.demo.model.AnalysisData;
 import backend.demo.model.Parameter;
 import backend.demo.service.api.AnalysisServiceApi;
-import backend.demo.service.api.ParseInputFileServiceApi;
-import javafx.util.Pair;
 import org.apache.commons.math3.linear.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,24 +16,24 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class AnalysisServiceImpl implements AnalysisServiceApi {
-    private static final Integer phaseParametersNumbers = 4;
-    private static final Integer FFSParametersNumbers = 5;
-    private Integer parametersNumber;
+public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
+    private Model model;
 
     @Autowired
-    public AnalysisServiceImpl(){}
+    public MarquardtAnalysisServiceImpl(){}
 
     @Override
     public AnalysisData startAnalysis(double[] inputValues, List<Parameter> parametersList, double[] outputRealValues,
                                   Double sigma, int modelID) {
         switch (modelID) {
             case PhaseFrequencyModel.ModelID: {
-                parametersNumber = phaseParametersNumbers;
+               this.model = new PhaseFrequencyModel();
                 break;
             }
-            case FFSModel.ModelID: {parametersNumber = FFSParametersNumbers;
-            break;}
+            case FFSModel.ModelID: {
+                this.model = new FFSModel();
+                break;
+            }
         }
 
         //get parameters as arrays
@@ -49,27 +47,31 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         }
 
         //count hi2
-        double[] model = countModel(parameters, inputValues, modelID);
-        double hi2 = Hi2.countHi2(model, outputRealValues, sigma, parametersNumber);
+        double[] model = this.model.countModel(parameters, inputValues);
+        double hi2 = Hi2.countHi2(model, outputRealValues, sigma, this.model.ParametersNumbers);
 
         double lambda = 0.001;
         double lambdaMax = 10E10;
         double eps = 10E-5;
-        double hi2New = 10000;///как задать его
+        double hi2New = 10000;
 
         while ((lambda < lambdaMax) && ((Math.abs(hi2New - hi2 ) / hi2 ) > eps)) {
             if(hi2New < hi2) {
                 hi2 = hi2New;
             }
             //count new parameters
-            double[] newParameters = optimizeParameters(parameters, inputValues, outputRealValues, sigma, modelID, lambda);
-
-
-            newParameters = newParametersChecking(newParameters, parameters, parametersMin, parametersMax);
+            double[] newParameters = optimizeParameters(parameters,
+                    inputValues,
+                    outputRealValues,
+                    sigma, modelID,
+                    lambda);
 
             //count new hi2
-            double[] modelNew = countModel(newParameters, inputValues, modelID);
-            hi2New = Hi2.countHi2(modelNew, outputRealValues, sigma, parametersNumber);
+            double[] modelNew = this.model.countModel(
+                    newParametersChecking(newParameters, parameters, parametersMin, parametersMax),
+                    inputValues);
+
+            hi2New = Hi2.countHi2(modelNew, outputRealValues, sigma, this.model.ParametersNumbers);
 
             if (hi2New < hi2) {
                 parameters = newParameters;
@@ -80,7 +82,6 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         }
 
         return transformToAnalysisData(parametersList, parameters, hi2New);
-
     }
 
     private double[] newParametersChecking(double[] newParameters, double[] oldParameters, double[] parametersMin, double[] parametersMax) {
@@ -133,12 +134,8 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         double[][] B = new double[1][parametersSize];
 
         //count model
-        double[] Fth = countModel(parameters, inputValues, modelID);
+        double[] Fth = this.model.countModel(parameters, inputValues);
 
-        /*double[] jDerivative1 = countDerivative(inputValues,  parameters, Fth, 0, modelID);
-        double[] jDerivative2 = countDerivative(inputValues,  parameters, Fth, 1, modelID);
-        double[] jDerivative3 = countDerivative(inputValues,  parameters, Fth, 2, modelID);
-        double[] jDerivative4 = countDerivative(inputValues,  parameters, Fth, 3, modelID);*/
         //count A matrix
         for (int i = 0; i < parametersSize; i++) {
             for (int j = 0; j < parametersSize; j++) {
@@ -202,14 +199,8 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
         double parameterIncrement = parameters[jEl] * 0.05;
         newParameters[jEl] = parameters[jEl] + parameterIncrement;
 
-        /*//increment input values
-        double[] inputValuesIncremented = new double[inputValuesLength];
-        for (int i = 0; i < inputValuesLength; i++) {
-            inputValuesIncremented[i] = inputValues[i] + (inputValues[i] * 0.00001);
-        }*/
-
         //count new model
-        double[] Fnew =  countModel(newParameters, inputValues, modelID);
+        double[] Fnew =  this.model.countModel(newParameters, inputValues);
 
         //derivative
         for (int i = 0; i < inputValuesLength; i++) {
@@ -232,39 +223,6 @@ public class AnalysisServiceImpl implements AnalysisServiceApi {
             accessionArray[i] = solution.getEntry(i);
         }
         return accessionArray;
-    }
-    /*
-     * startApproxParameters Phase model - a1, a2, t1, t2;
-     * startApproxParameters FFS model - N_eff, f_trip, tay_trip, tay_diff, a;
-     * */
-    @Override
-    public double[] countModel(double[] parameters, double[] inputValues, int modelID) {
-        switch (modelID) {
-            case PhaseFrequencyModel.ModelID: {
-                double a1 = parameters[0];
-                double a2 = parameters[1];
-                double t1 = parameters[2];
-                double t2 = parameters[3];
-                Pair<Double, Double> component1 = new Pair<>(a1, t1);
-                Pair<Double, Double> component2 = new Pair<>(a2, t2);
-                List<Pair<Double, Double>> components = new ArrayList<>();
-
-                components.add(component1);
-                components.add(component2);
-
-               return PhaseFrequencyModel.countModel(inputValues, components);
-            }
-            case FFSModel.ModelID: {
-                double N_eff = parameters[0];
-                double f_trip = parameters[1];
-                double tay_trip = parameters[2];
-                double tay_diff = parameters[3];
-                double a = parameters[4];
-
-                return FFSModel.countModel(inputValues, N_eff, f_trip, tay_trip, tay_diff, a);
-            }
-            default: return new double[0];
-        }
     }
 
     private AnalysisData transformToAnalysisData(List<Parameter> initParametersList, double[] parameters,  double hi2New) {

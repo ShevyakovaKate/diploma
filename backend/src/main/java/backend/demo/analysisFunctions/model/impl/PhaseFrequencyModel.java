@@ -1,16 +1,31 @@
-package backend.demo.analysis.model;
+package backend.demo.analysisFunctions.model.impl;
 
+import backend.demo.analysisFunctions.model.Model;
 import javafx.util.Pair;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhaseFrequencyModel {
+public class PhaseFrequencyModel implements Model {
     public static final int ModelID = 1;
+    private static final Integer ParametersNumbers = 4;
 
-    public static double[] countModel(double[] frequencies, List<Pair<Double, Double>> components) {
+    @Override
+    public double[] countModel(double[] parameters, double[] inputValues) {
+        double a1 = parameters[0];
+        double a2 = parameters[1];
+        double t1 = parameters[2];
+        double t2 = parameters[3];
+        Pair<Double, Double> component1 = new Pair<>(a1, t1);
+        Pair<Double, Double> component2 = new Pair<>(a2, t2);
+        List<Pair<Double, Double>> components = new ArrayList<>();
+
+        components.add(component1);
+        components.add(component2);
+        return count(inputValues, components);
+    }
+
+    private double[] count(double[] frequencies, List<Pair<Double, Double>> components) {
         double[] phaseFrequencyResult = new double[frequencies.length];
 
         for (int i = 0; i < frequencies.length; i++) {

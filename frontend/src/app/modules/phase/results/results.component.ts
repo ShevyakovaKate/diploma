@@ -68,6 +68,7 @@ export class ResultsComponent implements OnInit {
           display: true
         },
         scales: {
+          type: 'logarithmic',
           xAxes: [{
             scaleLabel: {
               display: true,
@@ -88,6 +89,7 @@ export class ResultsComponent implements OnInit {
   initParameterTable() {
     if(localStorage.getItem('parameters')) {
       this.parameters = JSON.parse(localStorage.getItem('parameters'));
+      console.log(this.parameters);
     }
     if(localStorage.getItem('hi2')) {
       this.hi2 = JSON.parse(localStorage.getItem('hi2'));

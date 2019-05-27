@@ -1,21 +1,21 @@
 <table class="table table-bordered table-responsive-md table-striped text-center m-0">
   <tr>
-    <th class="text-center">Parameter name</th>
-    <th class="text-center">Initial value</th>
-    <th class="text-center">Minimal value</th>
-    <th class="text-center">Maximal value</th>
+    <th class="text-center font-weight-normal">Parameter name</th>
+    <th class="text-center font-weight-normal">Initial value</th>
+    <th class="text-center font-weight-normal">Minimal value</th>
+    <th class="text-center font-weight-normal">Maximal value</th>
   </tr>
   <tr *ngFor="let number of components$ | async; let i = index ">
-    <td class="pt-3-half"><h3>{{parametersA[i].name}}</h3></td>
-    <td><input type='number' [value]="parametersA[i].value" required/></td>
-    <td><input type='number' [value]="parametersA[i].minValue" required/></td>
-    <td><input type='number' [value]="parametersA[i].maxValue" required/></td>
+    <td class="pt-3-half"><h4 class="font-italic font-weight-normal">{{parametersA[i]._name}}</h4></td>
+    <td><input type='number' [value]="parametersA[i]._value" required/></td>
+    <td><input type='number' [value]="parametersA[i]._minValue" required/></td>
+    <td><input type='number' [value]="parametersA[i]._maxValue" required/></td>
   </tr>
   <tr *ngFor="let number of components$ | async; let i = index ">
-    <td class="pt-3-half"><h3>{{parametersT[i].name}}</h3></td>
-    <td><input type='number' [value]="parametersT[i].value" required/></td>
-    <td><input type='number' [value]="parametersT[i].minValue" required/></td>
-    <td><input type='number' [value]="parametersT[i].maxValue" required /></td>
+    <td class="pt-3-half"><h4  class="font-italic font-weight-normal">{{parametersT[i]._name}}</h4></td>
+    <td><input type='number' [value]="parametersT[i]._value" required/></td>
+    <td><input type='number' [value]="parametersT[i]._minValue" required/></td>
+    <td><input type='number' [value]="parametersT[i]._maxValue" required /></td>
   </tr>
 </table>
 

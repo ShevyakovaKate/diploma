@@ -17,12 +17,6 @@
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex align-items-center flex-row">
         <h6 class="ml-2 mr-2 font-weight-bold text-primary">Earnings Overview</h6>
-        <div class="row col-5 ml-auto align-items-end ml-auto mr-1">
-          <h6 class="ml-2 mr-2 text-primary ml-auto">Component number:</h6>
-          <!-- Basic dropdown -->
-          <input type="number" class="form-control ml-auto" placeholder="Enter component number"  (keypress)="changeComponentNumber(myInput.value)"  #myInput />
-        </div>
-
       </div>
       <!-- Card Body -->
       <div class="card-body p-0">
@@ -33,11 +27,14 @@
               <th class="text-center">Value</th>
             </tr>
             <tr *ngFor="let parameter of parameters">
-              <td class="pt-3-half">{{parameter.name}}</td>
-              <td>{{parameter.value}}</td>
+              <td class="pt-3-half">{{parameter._name}}</td>
+              <td>{{parameter._value}}</td>
             </tr>
           </table>
         </div>
+      </div>
+      <div class="card-footer p-0">
+        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Target criterion: Hi2 = {{hi2}}</h6>
       </div>
     </div>
   </div>

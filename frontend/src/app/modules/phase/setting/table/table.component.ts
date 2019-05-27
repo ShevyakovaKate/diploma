@@ -40,17 +40,17 @@ export class TableComponent implements OnInit, DoCheck {
      this.components$.subscribe( items => {
        items.forEach(item => {
          let parameterA = new Parameter();
-         parameterA.name = 'a' + index;
-         parameterA.value = 1;
-         parameterA.minValue = 0;
-         parameterA.maxValue = 100;
+         parameterA._name = 'a' + index;
+         parameterA._value = 0.5;
+         parameterA._minValue = 0;
+         parameterA._maxValue = 100;
          this.parametersA.push(parameterA);
          ////////////
          let parameterT= new Parameter();
-         parameterT.name = 'τ' + index;
-         parameterT.value = 1;
-         parameterT.minValue = 0;
-         parameterT.maxValue = 100;
+         parameterT._name = 'τ' + index;
+         parameterT._value = 2E-9;
+         parameterT._minValue = 0;
+         parameterT._maxValue = 100;
          this.parametersT.push(parameterT);
          ///////////
          index++;

@@ -1,5 +1,5 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
-  <h1 class="h1 mb-0 text-gray-800">Dashboard</h1>
+  <h3 class="h3 mb-0 font-italic text-gray-800">Phase modulation measurement</h3>
 
 </div>
 
@@ -7,48 +7,25 @@
 <div class="row">
 
   <!-- Earnings (Monthly) Card Example -->
-  <div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-info shadow h-100 py-2">
-      <div class="card-body">
-        <div class="row no-gutters align-items-center">
-          <div class="col-6">
-            <label class="col-6 text-info p-0 m-0">Choose modal type:</label>
-            <!-- Basic dropdown -->
-            <div class="dropdown col-6 m-0 p-0">
-              <button class="btn btn-primary dropdown-toggle m-0" id="model-type-dropdown" type="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
-
-              <div class="dropdown-menu"  aria-labelledby="model-type-dropdown">
-                <a class="dropdown-item" href="#">Action</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-6">
-
-            <label class="col-6 text-info p-0 m-0">Choose modal type:</label>
-            <!-- Basic dropdown -->
-            <div class="dropdown col-6 m-0 p-0">
-              <button class="btn btn-primary dropdown-toggle m-0" id="model-component-dropdown" type="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
-
-              <div class="dropdown-menu"  aria-labelledby="model-component-dropdown">
-                <a class="dropdown-item" href="#">Action</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Earnings (Monthly) Card Example -->
-  <div class="col-xl-3 col-md-6 mb-4">
+  <div class="col-xl-6 col-md- mb-4">
     <div class="card border-left-warning shadow h-100 py-2 ">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <app-upload-file (fileEvent)="fileChanged($event)"></app-upload-file>
         </div>
+        <div class="row no-gutters align-items-center">
+          <label class="text p-0 m-0 mr-2">Choose modal type:</label>
+          <!-- Basic dropdown -->
+          <div class="dropdown m-0 p-0">
+            <button class="btn btn-primary dropdown-toggle m-0" id="model-component-dropdown" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
+
+            <div class="dropdown-menu"  aria-labelledby="model-component-dropdown">
+              <a class="dropdown-item" href="#">Action</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -64,9 +41,9 @@
     <div class="card border-left-primary shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex align-items-center flex-row">
-        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Earnings Overview</h6>
+        <h3 class="ml-2 mr-2 text"><small>Initial parameters</small></h3>
         <div class="row col-5 ml-auto align-items-end ml-auto mr-1">
-          <h6 class="ml-2 mr-2 text-primary ml-auto">Component number:</h6>
+          <h6 class="ml-2 mr-2 text ml-auto">Component number:</h6>
           <!-- Basic dropdown -->
           <input type="number" class="form-control ml-auto" placeholder="Enter component number"  (keypress)="changeComponentNumber(myInput.value)"  #myInput />
         </div>

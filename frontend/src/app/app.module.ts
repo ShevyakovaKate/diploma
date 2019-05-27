@@ -11,6 +11,9 @@ import {SettingComponent} from "./modules/phase/setting/setting.component";
 import {ResultsComponent} from "./modules/phase/results/results.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TableComponent } from './modules/phase/setting/table/table.component';
+import { FfsSettingComponent } from './modules/ffs/ffs-setting/ffs-setting.component';
+import { FfsResultComponent } from './modules/ffs/ffs-result/ffs-result.component';
+import { FfsTableComponent } from './modules/ffs/ffs-setting/ffs-table/ffs-table.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { TableComponent } from './modules/phase/setting/table/table.component';
     PhaseComponent,
     SettingComponent,
     ResultsComponent,
-    TableComponent
+    TableComponent,
+    FfsSettingComponent,
+    FfsResultComponent,
+    FfsTableComponent
   ],
   imports: [
     BrowserModule,

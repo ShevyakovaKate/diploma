@@ -1,7 +1,8 @@
 package backend.demo.controller.impl;
 
-import backend.demo.analysis.model.FFSModel;
-import backend.demo.analysis.model.PhaseFrequencyModel;
+import backend.demo.analysisFunctions.model.Model;
+import backend.demo.analysisFunctions.model.impl.FFSModel;
+import backend.demo.analysisFunctions.model.impl.PhaseFrequencyModel;
 import backend.demo.controller.api.AnalysisController;
 import backend.demo.model.AnalysisData;
 import backend.demo.model.InputFileData;
@@ -10,15 +11,12 @@ import backend.demo.service.api.AnalysisServiceApi;
 import backend.demo.service.api.ParseInputFileServiceApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +25,7 @@ import java.util.List;
 public class AnalysisControllerImpl implements AnalysisController {
     private AnalysisServiceApi analysisService;
     private ParseInputFileServiceApi parseInputFileService;
+    private Model model;
 
     @Autowired
     public AnalysisControllerImpl(AnalysisServiceApi analysisService, ParseInputFileServiceApi parseInputFileService) {
@@ -142,11 +141,35 @@ public class AnalysisControllerImpl implements AnalysisController {
      */
     @Override
     public List<double[]> getModel(String initParams, MultipartFile file, Integer id) {
-        double[] initParamsArray = parseInputFileService.parseInitParamsStringToArray(initParams);
+        switch (id) {
+            case PhaseFrequencyModel.ModelID: {
+                this.model = new PhaseFrequencyModel();
+                break;
+            }
+            case FFSModel.ModelID: {
+                this.model = new FFSModel();
+                break;
+            }
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Parameter> parameters = new ArrayList<>();
+        try {
+            parameters = objectMapper.readValue(initParams, new TypeReference<List<Parameter>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();;
+        }
+
+        double[] initParamsArray  = new double[parameters.size()];
+
+        for (int i = 0; i < parameters.size(); i++) {
+            initParamsArray[i] = parameters.get(i).get_value();
+        }
+
         InputFileData inputFileData = parseInputFileService.parseInputData(file);
         List<double[]> returnModel = new ArrayList<>();
         returnModel.add(inputFileData.getInputValues());
-        returnModel.add(analysisService.countModel(initParamsArray, inputFileData.getInputValues(), id));
+        returnModel.add(this.model.countModel(initParamsArray, inputFileData.getInputValues()));
         returnModel.add(inputFileData.getOutputValues());
         return returnModel;
     }
