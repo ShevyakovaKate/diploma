@@ -1,4 +1,4 @@
-package backend.demo.analysisFunctions.targetCriterion;
+package backend.demo.analysisFunctions.qualityAnalysisUtil;
 
 import org.springframework.stereotype.Service;
 

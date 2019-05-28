@@ -13,7 +13,9 @@ export class ResultsComponent implements OnInit {
   allTheoreticalModelValues: number[];
   allRealModelValues: number[];
   allFrequencies: number[];
-  chart = []; // This will hold our chart info
+  model = []; // This will hold our chart info
+  autocorrelationalFunction = []; // This will hold our chart info
+  weightedAverageBalances = []; // This will hold our chart info
   parameters: Parameter[];
   hi2: number;
 
@@ -40,7 +42,7 @@ export class ResultsComponent implements OnInit {
       allLabels.push(res.toString())
     });
 
-    this.chart = new Chart('canvas', {
+    this.model = new Chart('model', {
       type: 'line',
       data: {
         labels: allLabels,
@@ -68,22 +70,93 @@ export class ResultsComponent implements OnInit {
           display: true
         },
         scales: {
-          type: 'logarithmic',
           xAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Frequency ()'
+              labelString: 'Frequency (rad/s)'
             }
           }],
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Phase shift ()'
+              labelString: 'Phase shift (ns)'
             }
           }],
         }
       }
     });
+
+    this.autocorrelationalFunction = new Chart('autocorrelationalFunction', {
+      type: 'line',
+      data: {
+        labels: allLabels,
+        datasets: [
+          {
+            data: JSON.parse(localStorage.getItem('autocorrelationalFunction')),
+            borderColor: "#3cba9f",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Auto Correlation of Residuals'
+        },
+        legend: {
+          display: true
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true
+            }
+          }],
+        }
+      }
+    });
+
+    this.weightedAverageBalances = new Chart('weightedAverageBalances', {
+      type: 'line',
+      data: {
+        labels: allLabels,
+        datasets: [
+          {
+            data: JSON.parse(localStorage.getItem('weightedAverageBalances')),
+            borderColor: "#3cba9f",
+            fill: false
+          }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Residuals'
+        },
+        legend: {
+          display: true
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true
+            }
+          }],
+        }
+      }
+    });
+
+    console.log(this.weightedAverageBalances);
   }
 
   initParameterTable() {

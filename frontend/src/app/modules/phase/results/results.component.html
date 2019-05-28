@@ -1,28 +1,53 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+  <h3 class="h3 mb-0 font-italic text-primary text-gray-800">Phase modulation measurement</h3>
+</div>
+
 <div class="row mb-4 mt-4">
 
   <!-- Earnings (Monthly) Card Example -->
   <div class="col-xl-8 col-md-8 mb-4">
-    <div class="card border-left-info shadow h-100 py-2">
+
+    <div class="card border-left-info shadow py-2">
       <div class="card-body">
         <div>
-          <canvas id="canvas">{{ chart }}</canvas>
+          <canvas id="model">{{ model }}</canvas>
         </div>
-
+        <!--<div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      <h3>Loading...</h3>-->
       </div>
     </div>
+
+    <div class="card border-left-info shadow m-2 py-2">
+      <div class="card-body">
+        <div>
+          <canvas id="weightedAverageBalances">{{ weightedAverageBalances }}</canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card border-left-info shadow m-2 py-2">
+      <div class="card-body">
+        <div>
+          <canvas id="autocorrelationalFunction">{{ autocorrelationalFunction }}</canvas>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="col-xl-4 col-lg-4">
     <div class="card border-left-primary shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex align-items-center flex-row">
-        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Earnings Overview</h6>
+        <h5 class="ml-2 mr-2 font-weight-bold">Received parameters</h5>
       </div>
       <!-- Card Body -->
       <div class="card-body p-0">
         <div id="table" class="table-editable">
           <table class="table table-bordered table-responsive-md table-striped text-center m-0">
-            <tr>
+           <tr>
               <th class="text-center">Parameter name</th>
               <th class="text-center">Value</th>
             </tr>
@@ -34,7 +59,7 @@
         </div>
       </div>
       <div class="card-footer p-0">
-        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Target criterion: Hi2 = {{hi2}}</h6>
+        <h6 class="ml-2 mr-2 font-weight-bold">Target criterion: Hi2 = {{hi2}}</h6>
       </div>
     </div>
   </div>

@@ -1,3 +1,8 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+  <h3 class="h3 mb-0 font-italic text-gray-800">FFS measurement</h3>
+</div>
+
+
 <div class="row mb-4 mt-4">
 
   <!-- Earnings (Monthly) Card Example -->
@@ -7,7 +12,9 @@
         <div>
           <canvas id="canvas">{{ chart }}</canvas>
         </div>
-
+        <!--<div *ngIf="!showGraphic">
+          <h4 class="font-weight-normal">No graphics...</h4>
+        </div>-->
       </div>
     </div>
   </div>
@@ -16,15 +23,15 @@
     <div class="card border-left-primary shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex align-items-center flex-row">
-        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Earnings Overview</h6>
+        <h5 class="ml-2 mr-2 font-weight-bold">Received parameters</h5>
       </div>
       <!-- Card Body -->
       <div class="card-body p-0">
         <div id="table" class="table-editable">
           <table class="table table-bordered table-responsive-md table-striped text-center m-0">
             <tr>
-              <th class="text-center">Parameter name</th>
-              <th class="text-center">Value</th>
+              <th class="text-center font-weight-bold">Parameter name</th>
+              <th class="text-center font-weight-bold">Value</th>
             </tr>
             <tr *ngFor="let parameter of parameters">
               <td class="pt-3-half">{{parameter._name}}</td>
@@ -34,10 +41,12 @@
         </div>
       </div>
       <div class="card-footer p-0">
-        <h6 class="ml-2 mr-2 font-weight-bold text-primary">Target criterion: Hi2 = {{hi2}}</h6>
+        <h6 class="ml-2 m-4 font-weight-bold">Target criterion: Hi2 = {{hi2}}</h6>
       </div>
     </div>
   </div>
 
 
 </div>
+
+

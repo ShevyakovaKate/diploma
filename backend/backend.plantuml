@@ -64,7 +64,7 @@ title __BACKEND's Class Diagram__\n
 
   package  {
     package backend.demo {
-      package backend.demo.analysisFunctions.targetCriterion {
+      package backend.demo.analysisFunctions.qualityAnalysisUtil {
         class Hi2 {
         }
       }

@@ -94,6 +94,8 @@ export class SettingComponent implements OnInit{
         localStorage.removeItem('hi2');
         localStorage.setItem('parameters',JSON.stringify(res.parameters));
         localStorage.setItem('hi2', JSON.stringify(res.hi2));
+        localStorage.setItem('autocorrelationalFunction',  JSON.stringify(res.autocorrelationalFunction));
+        localStorage.setItem('weightedAverageBalances',  JSON.stringify(res.weightedAverageBalances));
         this.router.navigate(['/phase/results']);
       },
       error => {

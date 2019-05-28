@@ -2,9 +2,11 @@ package backend.demo.service.impl;
 
 import backend.demo.analysisFunctions.model.Model;
 import backend.demo.analysisFunctions.model.impl.FFSModel;
-import backend.demo.analysisFunctions.targetCriterion.Hi2;
+import backend.demo.analysisFunctions.qualityAnalysisUtil.Hi2;
 import backend.demo.analysisFunctions.model.impl.PhaseFrequencyModel;
+import backend.demo.analysisFunctions.qualityAnalysisUtil.WeightedAverageBalance;
 import backend.demo.model.AnalysisData;
+import backend.demo.model.InputFileData;
 import backend.demo.model.Parameter;
 import backend.demo.service.api.AnalysisServiceApi;
 import org.apache.commons.math3.linear.*;
@@ -54,6 +56,8 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
         double lambdaMax = 10E10;
         double eps = 10E-5;
         double hi2New = 10000;
+        double[] modelNew = new double[0];
+
 
         while ((lambda < lambdaMax) && ((Math.abs(hi2New - hi2 ) / hi2 ) > eps)) {
             if(hi2New < hi2) {
@@ -67,7 +71,7 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
                     lambda);
 
             //count new hi2
-            double[] modelNew = this.model.countModel(
+            modelNew = this.model.countModel(
                     newParametersChecking(newParameters, parameters, parametersMin, parametersMax),
                     inputValues);
 
@@ -81,7 +85,12 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
             }
         }
 
-        return transformToAnalysisData(parametersList, parameters, hi2New);
+        double[] weightedAverageBalance = WeightedAverageBalance.getWeightedAverageBalance(modelNew, outputRealValues, sigma);
+        double[] autocorrelationalOfWeightedAverageBalances = WeightedAverageBalance.getAutocorrelationalOfWeightedAverageBalances(weightedAverageBalance, this.model.ParametersNumbers);
+        AnalysisData analysisData = transformToAnalysisData(parametersList, parameters, hi2New);
+        analysisData.setWeightedAverageBalances(weightedAverageBalance);
+        analysisData.setAutocorrelationalFunction(autocorrelationalOfWeightedAverageBalances);
+        return analysisData;
     }
 
     private double[] newParametersChecking(double[] newParameters, double[] oldParameters, double[] parametersMin, double[] parametersMax) {

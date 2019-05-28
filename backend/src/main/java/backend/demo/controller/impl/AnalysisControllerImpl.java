@@ -3,6 +3,7 @@ package backend.demo.controller.impl;
 import backend.demo.analysisFunctions.model.Model;
 import backend.demo.analysisFunctions.model.impl.FFSModel;
 import backend.demo.analysisFunctions.model.impl.PhaseFrequencyModel;
+import backend.demo.analysisFunctions.qualityAnalysisUtil.WeightedAverageBalance;
 import backend.demo.controller.api.AnalysisController;
 import backend.demo.model.AnalysisData;
 import backend.demo.model.InputFileData;
