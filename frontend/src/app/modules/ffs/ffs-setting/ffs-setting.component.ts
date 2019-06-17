@@ -64,6 +64,8 @@ export class FfsSettingComponent implements OnInit {
         console.log(res);
         localStorage.setItem('parametersffs',JSON.stringify(res.parameters));
         localStorage.setItem('hi2ffs', JSON.stringify(res.hi2));
+        localStorage.setItem('autocorrelationalFunctionffs',  JSON.stringify(res.autocorrelationalFunction));
+        localStorage.setItem('weightedAverageBalancesffs',  JSON.stringify(res.weightedAverageBalances));
         this.router.navigate(['/ffs/results']);
       },
       error => {

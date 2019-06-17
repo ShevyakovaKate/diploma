@@ -73,13 +73,13 @@ export class ResultsComponent implements OnInit {
           xAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Frequency (rad/s)'
+              labelString: 'Frequency  * 10^-8, rad/s'
             }
           }],
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Phase shift (ns)'
+              labelString: 'Phase shift, ns'
             }
           }],
         }
@@ -94,7 +94,8 @@ export class ResultsComponent implements OnInit {
           {
             data: JSON.parse(localStorage.getItem('autocorrelationalFunction')),
             borderColor: "#3cba9f",
-            fill: false
+            fill: false,
+            lineTension: 0
           }
         ]
       },
@@ -121,6 +122,8 @@ export class ResultsComponent implements OnInit {
       }
     });
 
+
+
     this.weightedAverageBalances = new Chart('weightedAverageBalances', {
       type: 'line',
       data: {
@@ -129,7 +132,8 @@ export class ResultsComponent implements OnInit {
           {
             data: JSON.parse(localStorage.getItem('weightedAverageBalances')),
             borderColor: "#3cba9f",
-            fill: false
+            fill: false,
+            lineTension: 0
           }
         ]
       },
@@ -137,21 +141,6 @@ export class ResultsComponent implements OnInit {
         title: {
           display: true,
           text: 'Residuals'
-        },
-        legend: {
-          display: true
-        },
-        scales: {
-          xAxes: [{
-            scaleLabel: {
-              display: true
-            }
-          }],
-          yAxes: [{
-            scaleLabel: {
-              display: true
-            }
-          }],
         }
       }
     });

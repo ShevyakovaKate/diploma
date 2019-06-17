@@ -20,10 +20,12 @@
           <label class="text p-0 m-0 mr-2">Choose modal type:</label>
           <!-- Basic dropdown -->
           <div class="dropdown m-0 p-0">
-            <button class="btn btn-primary dropdown-toggle m-0" id="model-component-dropdown" type="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Exponent</button>
+            <button class="btn btn-primary dropdown-toggle m-0" id="model-component-dropdown" type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">Exponent
+            </button>
 
-            <div class="dropdown-menu"  aria-labelledby="model-component-dropdown">
+            <div class="dropdown-menu" aria-labelledby="model-component-dropdown">
               <a class="dropdown-item">Exponent</a>
             </div>
           </div>
@@ -44,11 +46,14 @@
     <div class="card border-left-primary shadow mb-4">
       <!-- Card Header - Dropdown -->
       <div class="card-header py-3 d-flex align-items-center flex-row">
-        <h3 class="ml-2 mr-2 text"><small>Initial parameters</small></h3>
+        <h3 class="ml-2 mr-2 text">
+          <small>Initial parameters</small>
+        </h3>
         <div class="row col-5 ml-auto align-items-end ml-auto mr-1">
           <h6 class="ml-2 mr-2 text ml-auto">Component number:</h6>
           <!-- Basic dropdown -->
-          <input type="number" class="form-control ml-auto" placeholder="Enter component number"  (keypress)="changeComponentNumber(myInput.value)"  #myInput />
+          <input type="number" class="form-control ml-auto" placeholder="Enter component number"
+                 (keypress)="changeComponentNumber(myInput.value)" #myInput/>
         </div>
 
       </div>
@@ -57,16 +62,14 @@
         <div id="table" class="table-editable">
           <app-table [components$]="components$"></app-table>
         </div>
+      </div>
     </div>
+
   </div>
 
 </div>
 
-
-
-</div>
-
-<div class="p-0 col-xl-2 col-lg-2" >
+<div class="p-0 col-xl-2 col-lg-2">
   <a class="btn-result mb-4 d-none d-block btn btn btn-primary shadow" (click)="modelWithInitialParameters()">
     <i class="fas fa-download fa-sm text-white-50"></i>Model with initial parameters</a>
 

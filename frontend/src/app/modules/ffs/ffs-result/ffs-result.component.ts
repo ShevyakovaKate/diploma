@@ -14,6 +14,8 @@ export class FfsResultComponent implements OnInit {
   allRealModelValues: number[];
   allFrequencies: number[];
   chart = []; // This will hold our chart info
+  autocorrelationalFunction = [];
+  weightedAverageBalances = [];
   parameters: Parameter[];
   hi2: number;
   showGraphic = false;
@@ -86,7 +88,67 @@ export class FfsResultComponent implements OnInit {
           }
         }
       });
+
+      this.autocorrelationalFunction = new Chart('autocorrelationalFunction', {
+        type: 'line',
+        data: {
+          labels: allLabels,
+          datasets: [
+            {
+              data: JSON.parse(localStorage.getItem('autocorrelationalFunctionffs')),
+              borderColor: "#3cba9f",
+              fill: false,
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Auto Correlation of Residuals'
+          },
+          legend: {
+            display: true
+          },
+          scales: {
+            xAxes: [{
+              scaleLabel: {
+                display: true
+              }
+            }],
+            yAxes: [{
+              scaleLabel: {
+                display: true
+              }
+            }],
+          }
+        }
+      });
+
+
+
+      this.weightedAverageBalances = new Chart('weightedAverageBalances', {
+        type: 'line',
+        data: {
+          labels: allLabels,
+          datasets: [
+            {
+              data: JSON.parse(localStorage.getItem('weightedAverageBalancesffs')),
+              borderColor: "#3cba9f",
+              fill: false,
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Residuals'
+          }
+        }
+      });
     }
+
 
 
     console.log(this.chart);
