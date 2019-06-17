@@ -26,7 +26,7 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
 
     @Override
     public AnalysisData startAnalysis(double[] inputValues, List<Parameter> parametersList, double[] outputRealValues,
-                                  Double sigma, int modelID) {
+                                  double[] sigma, int modelID) {
         switch (modelID) {
             case PhaseFrequencyModel.ModelID: {
                this.model = new PhaseFrequencyModel();
@@ -74,6 +74,9 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
             modelNew = this.model.countModel(
                     newParametersChecking(newParameters, parameters, parametersMin, parametersMax),
                     inputValues);
+            /*modelNew = this.model.countModel(
+                    newParameters,
+                    inputValues);*/
 
             hi2New = Hi2.countHi2(modelNew, outputRealValues, sigma, this.model.ParametersNumbers);
 
@@ -102,7 +105,7 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
         return newParameters;
     }
 
-    private double[] optimizeParameters(double[] parameters, double[] inputValues, double[] realValues, double sigma, int modelID, double lambda) {
+    private double[] optimizeParameters(double[] parameters, double[] inputValues, double[] realValues, double[] sigma, int modelID, double lambda) {
         List<double[][]> matrix = calcMatrix(parameters, inputValues, realValues, sigma, modelID);
         double[][] A = matrix.get(0);
         double[][] B = matrix.get(1);
@@ -137,7 +140,7 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
     * startApproxParameters FFS model - N_eff, f_trip, tay_trip, tay_diff, a;
     * */
     private List<double[][]> calcMatrix(double[] parameters, double[] inputValues, double[] realValues,
-                                        double sigma, int modelID) {
+                                        double[] sigma, int modelID) {
         int parametersSize = parameters.length;
         double[][] A = new double[parametersSize][parametersSize];
         double[][] B = new double[1][parametersSize];
@@ -164,7 +167,7 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
     }
 
     private double countAElement (double[] inputValues, double[] parameters, double[] Fth,
-                                  double sigma, int iEl, int jEl, int modelID) {
+                                  double[] sigma, int iEl, int jEl, int modelID) {
         int inputValuesLength = inputValues.length;
         double returnValue = 0;
 
@@ -175,13 +178,13 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
 
         //count matrix point
         for (int i =0; i < inputValuesLength; i++) {
-            returnValue += (iDerivative[i] * jDerivative[i]) / (sigma * sigma);
+            returnValue += (iDerivative[i] * jDerivative[i]) / (sigma[i] * sigma[i]);
         }
         return returnValue;
     }
 
     private double countBElement(double[] inputValues, double[] parameters, double[] Fth,
-                                 double[] realValues, double sigma, int jEl, int modelID) {
+                                 double[] realValues, double[] sigma, int jEl, int modelID) {
         int inputValuesLength = inputValues.length;
         double returnValue = 0;
 
@@ -189,7 +192,7 @@ public class MarquardtAnalysisServiceImpl implements AnalysisServiceApi {
         double[] jDerivative = countDerivative(inputValues,  parameters, Fth, jEl, modelID);
 
         for (int i = 0; i < inputValuesLength; i++) {
-            returnValue +=  (realValues[i] - Fth[i]) / (sigma * sigma) * jDerivative[i];
+            returnValue +=  (realValues[i] - Fth[i]) / (sigma[i] * sigma[i]) * jDerivative[i];
         }
 
         return returnValue;

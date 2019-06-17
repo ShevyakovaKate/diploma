@@ -4,7 +4,7 @@ public class InputFileData {
 
     private double[] inputValues;
     private double[] outputValues;
-    private double sigma;
+    private double[] sigma;
 
     public double[] getInputValues() {
         return inputValues;
@@ -22,11 +22,11 @@ public class InputFileData {
         this.outputValues = outputValues;
     }
 
-    public double getSigma() {
+    public double[] getSigma() {
         return sigma;
     }
 
-    public void setSigma(double sigma) {
+    public void setSigma(double[] sigma) {
         this.sigma = sigma;
     }
 }

@@ -18,6 +18,6 @@ public interface AnalysisServiceApi {
      * @return matched parameters
      */
     AnalysisData startAnalysis(double[] inputValues, List<Parameter> parameters,
-                               double[] outputRealValues, Double sigma, int modelID);
+                               double[] outputRealValues, double[] sigma, int modelID);
 
 }

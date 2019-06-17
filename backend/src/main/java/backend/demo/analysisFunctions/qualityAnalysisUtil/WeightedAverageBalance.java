@@ -2,11 +2,11 @@ package backend.demo.analysisFunctions.qualityAnalysisUtil;
 
 public class WeightedAverageBalance {
 
-    public static double[] getWeightedAverageBalance(double[] modelValues, double[] realValues, Double sigma) {
+    public static double[] getWeightedAverageBalance(double[] modelValues, double[] realValues, double[] sigma) {
 
         double[] weightedAverageBalances = new double[modelValues.length];
         for (int i = 0; i < modelValues.length; i++) {
-            weightedAverageBalances[i] = (modelValues[i] - realValues[i]) / sigma;
+            weightedAverageBalances[i] = (double) Math.round(((modelValues[i] - realValues[i]) / sigma[i]) * 1000000) / 1000000;
         }
         return weightedAverageBalances;
     }
@@ -40,7 +40,7 @@ public class WeightedAverageBalance {
         numerator = numerator / ( N - k + 1 );
         denominator = denominator / N;
 
-        return numerator / denominator;
+        return (double) Math.round((numerator / denominator) * 1000000) / 1000000;
     }
 
 

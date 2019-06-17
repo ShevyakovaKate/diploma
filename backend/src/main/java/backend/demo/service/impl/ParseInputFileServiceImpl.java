@@ -46,7 +46,7 @@ public class ParseInputFileServiceImpl implements ParseInputFileServiceApi {
         InputFileData inputFileData = new InputFileData();
         inputFileData.setInputValues(inputValues);
         inputFileData.setOutputValues(outputValues);
-        inputFileData.setSigma(sigma[0]);
+        inputFileData.setSigma(sigma);
 
         return inputFileData;
     }
